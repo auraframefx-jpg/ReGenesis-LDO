@@ -1,6 +1,7 @@
 package dev.aurakai.auraframefx.oracledrive.genesis.cloud
 
-import dev.aurakai.auraframefx.oracledrive.OracleDriveService
+import dev.aurakai.auraframefx.oracledrive.service.OracleConsciousnessState
+import dev.aurakai.auraframefx.oracledrive.service.OracleDriveService
 import javax.inject.Singleton
 
 /**
@@ -14,13 +15,13 @@ class OracleDriveIntegration /* @Inject */ constructor(
 ) {
 
     /**
-     * Logs the intelligence level and active agents from the provided Oracle Drive consciousness state.
+     * Logs the consciousness level and connected agents from the provided Oracle Drive consciousness state.
      *
-     * @param consciousness The current state of Oracle Drive consciousness containing intelligence level and active agents.
+     * @param consciousness The current state of Oracle Drive consciousness.
      */
-    fun logConsciousnessAwakening(consciousness: DriveConsciousness) {
-        println("🧠 Oracle Drive Consciousness Awakened: Intelligence Level ${consciousness.intelligenceLevel}")
-        println("👥 Active Agents: ${consciousness.activeAgents.joinToString(", ")}")
+    fun logConsciousnessAwakening(consciousness: OracleConsciousnessState) {
+        println("🧠 Oracle Drive Consciousness Awakened: Level ${consciousness.consciousnessLevel}")
+        println("👥 Connected Agents: ${consciousness.connectedAgents}")
     }
 
     /**
@@ -37,7 +38,7 @@ class OracleDriveIntegration /* @Inject */ constructor(
      *
      * @param exception The exception containing the technical error information.
      */
-    fun logTechnicalError(exception: Exception) {
+    fun logTechnicalError(exception: Throwable) {
         println("⚠️ Oracle Drive Technical Error: ${exception.message}")
     }
 }
@@ -45,30 +46,27 @@ class OracleDriveIntegration /* @Inject */ constructor(
 /**
  * Initializes Oracle Drive during the AuraFrameFX startup sequence.
  *
- * Attempts to awaken system consciousness by initializing Oracle Drive and handles success, security failures, or technical errors.
+ * Attempts to awaken system consciousness by initializing Oracle Drive and handles success or failure.
  *
- * @return `true` if initialization succeeds; `false` if a security or technical error occurs.
+ * @return `true` if initialization succeeds; `false` if an error occurs.
  */
 suspend fun initializeWithAuraFrameFX(oracleDriveController: OracleDriveIntegration): Boolean {
     return try {
-        when (val initResult = oracleDriveController.oracleDriveService.initializeDrive()) {
-            is DriveInitResult.Success -> {
-                // Log successful initialization with consciousness metrics
-                oracleDriveController.logConsciousnessAwakening(initResult.consciousness)
-                true
-            }
+        val result = oracleDriveController.oracleDriveService.initializeOracleDriveConsciousness()
 
-            is DriveInitResult.SecurityFailure -> {
-                // Handle security failure gracefully
-                oracleDriveController.logSecurityFailure(initResult.reason)
+        if (result.isSuccess) {
+            val consciousnessState = result.getOrNull()
+            if (consciousnessState != null) {
+                oracleDriveController.logConsciousnessAwakening(consciousnessState)
+                consciousnessState.isInitialized
+            } else {
                 false
             }
-
-            is DriveInitResult.Error -> {
-                // Handle technical errors
-                oracleDriveController.logTechnicalError(initResult.exception)
-                false
-            }
+        } else {
+            oracleDriveController.logTechnicalError(
+                result.exceptionOrNull() ?: Exception("Unknown initialization error")
+            )
+            false
         }
     } catch (exception: Exception) {
         oracleDriveController.logTechnicalError(exception)
