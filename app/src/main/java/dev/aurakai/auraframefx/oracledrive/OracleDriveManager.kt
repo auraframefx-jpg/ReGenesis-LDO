@@ -3,7 +3,7 @@ package dev.aurakai.auraframefx.oracledrive
 import dev.aurakai.auraframefx.oracledrive.genesis.cloud.CloudStorageProvider
 import dev.aurakai.auraframefx.oracledrive.genesis.cloud.DriveConsciousness
 import dev.aurakai.auraframefx.oracledrive.genesis.cloud.DriveConsciousnessState
-import dev.aurakai.auraframefx.oracledrive.genesis.cloud.DriveInitResult as GenesisDriveInitResult
+import dev.aurakai.auraframefx.oracledrive.genesis.cloud.DriveInitResult
 import dev.aurakai.auraframefx.oracledrive.genesis.cloud.OracleSyncResult
 import dev.aurakai.auraframefx.oracledrive.genesis.cloud.StorageOptimization
 import dev.aurakai.auraframefx.oracledrive.security.DriveSecurityManager
@@ -13,9 +13,6 @@ import javax.inject.Singleton
 // Removed unused helpers and incorrect extensions. This file provides a small manager
 // that coordinates genesis API, cloud provider and security manager and returns
 // the canonical DriveInitResult sealed types from genesis.cloud.
-
-/** Annotation for Hilt/KSP to identify the OracleDrive API contract. */
-annotation class OracleDriveApi
 
 /**
  * Defines the contract for AI/Genesis Protocol interaction.
@@ -46,13 +43,13 @@ internal open class OracleDriveManager /* @Inject */ constructor(
      * Initializes the drive and returns a canonical DriveInitResult (Success / SecurityFailure / Error).
      *
      * NOTE: this manager delegates to the genesis/cloud model types. We return the aliased
-     * `GenesisDriveInitResult` so callers see the concrete genesis sealed types (Success, Error, SecurityFailure).
+     * `DriveInitResult` so callers see the concrete genesis sealed types (Success, Error, SecurityFailure).
      */
-    suspend fun initializeDrive(): GenesisDriveInitResult {
+    suspend fun initializeDrive(): DriveInitResult {
         return try {
             val securityCheck = securityManager.validateDriveAccess()
             if (!securityCheck.isValid) {
-                return GenesisDriveInitResult.SecurityFailure(securityCheck.reason)
+                return DriveInitResult.SecurityFailure(securityCheck.reason)
             }
 
             // Awaken drive consciousness via Genesis API
@@ -68,9 +65,9 @@ internal open class OracleDriveManager /* @Inject */ constructor(
                 intelligentTiering = false
             )
 
-            GenesisDriveInitResult.Success(consciousness, optimization)
+            DriveInitResult.Success(consciousness, optimization)
         } catch (exception: Exception) {
-            GenesisDriveInitResult.Error(exception)
+            DriveInitResult.Error(exception)
         }
     }
 
