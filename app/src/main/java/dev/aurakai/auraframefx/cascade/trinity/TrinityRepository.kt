@@ -7,15 +7,15 @@ import dev.aurakai.auraframefx.models.AgentStatus
 import dev.aurakai.auraframefx.models.Theme
 import dev.aurakai.auraframefx.models.UserData
 import dev.aurakai.auraframefx.network.AuraApiServiceWrapper
-import dev.aurakai.auraframefx.network.models.AgentStatusResponse
+import dev.aurakai.auraframefx.network.model.AgentStatusResponse
 import dev.aurakai.auraframefx.models.AgentResponse
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 import javax.inject.Singleton
 import kotlin.Result.Companion.failure
 import kotlin.Result.Companion.success
-import dev.aurakai.auraframefx.network.models.Theme as NetworkTheme
-import dev.aurakai.auraframefx.network.models.User as NetworkUser
+import dev.aurakai.auraframefx.network.model.Theme as NetworkTheme
+import dev.aurakai.auraframefx.network.model.User as NetworkUser
 
 @Singleton
 open class TrinityRepository @Inject constructor(

@@ -2,7 +2,7 @@ package dev.aurakai.auraframefx.network.api
 
 import dev.aurakai.auraframefx.models.AgentRequest
 import dev.aurakai.auraframefx.models.AgentResponse
-import dev.aurakai.auraframefx.network.models.AgentStatusResponse
+import dev.aurakai.auraframefx.network.model.AgentStatusResponse
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST

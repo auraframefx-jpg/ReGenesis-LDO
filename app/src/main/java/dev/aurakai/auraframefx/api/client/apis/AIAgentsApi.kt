@@ -26,7 +26,7 @@ import dev.aurakai.auraframefx.api.client.infrastructure.ResponseType
 import dev.aurakai.auraframefx.api.client.infrastructure.ServerError
 import dev.aurakai.auraframefx.api.client.infrastructure.ServerException
 import dev.aurakai.auraframefx.api.client.infrastructure.Success
-import dev.aurakai.auraframefx.api.client.models.AgentStatus
+import dev.aurakai.auraframefx.models.AgentStatus
 import okhttp3.Call
 import okhttp3.HttpUrl
 import java.io.IOException

@@ -2,7 +2,7 @@ package dev.aurakai.auraframefx.aura
 
 import dev.aurakai.auraframefx.api.client.apis.AIContentApi
 import dev.aurakai.auraframefx.api.client.models.GenerateImageDescriptionRequest
-import dev.aurakai.auraframefx.api.client.models.GenerateTextRequest
+import dev.aurakai.auraframefx.ai.model.GenerateTextRequest
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject

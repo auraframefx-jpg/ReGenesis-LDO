@@ -11,7 +11,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.luminance
 import androidx.compose.ui.unit.dp
 import androidx.core.graphics.toColorInt
-import dev.aurakai.auraframefx.network.models.Theme
+import dev.aurakai.auraframefx.network.model.Theme
 import dev.aurakai.auraframefx.ui.theme.manager.ColorSchemeManager
 import dev.aurakai.auraframefx.ui.theme.picker.ColorBlendrPicker
 

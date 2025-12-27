@@ -5,8 +5,8 @@ import androidx.compose.material3.lightColorScheme
 import androidx.compose.ui.graphics.Color
 import androidx.core.graphics.toColorInt
 import java.util.Locale
-import dev.aurakai.auraframefx.network.models.Theme as NetworkTheme
-import dev.aurakai.auraframefx.network.models.ThemeColors as NetworkThemeColors
+import dev.aurakai.auraframefx.network.model.Theme as NetworkTheme
+import dev.aurakai.auraframefx.network.model.ThemeColors as NetworkThemeColors
 
 /**
  * Manages color schemes for the application, including dynamic theming and color manipulation.

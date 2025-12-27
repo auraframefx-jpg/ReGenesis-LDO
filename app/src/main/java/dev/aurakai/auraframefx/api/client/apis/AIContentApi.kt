@@ -28,8 +28,8 @@ import dev.aurakai.auraframefx.api.client.infrastructure.ServerException
 import dev.aurakai.auraframefx.api.client.infrastructure.Success
 import dev.aurakai.auraframefx.api.client.models.GenerateImageDescriptionRequest
 import dev.aurakai.auraframefx.api.client.models.GenerateImageDescriptionResponse
-import dev.aurakai.auraframefx.api.client.models.GenerateTextRequest
-import dev.aurakai.auraframefx.api.client.models.GenerateTextResponse
+import dev.aurakai.auraframefx.ai.model.GenerateTextRequest
+import dev.aurakai.auraframefx.ai.model.GenerateTextResponse
 import okhttp3.Call
 import okhttp3.HttpUrl
 import java.io.IOException

@@ -15,8 +15,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.core.graphics.toColorInt
-import dev.aurakai.auraframefx.network.models.Theme
-import dev.aurakai.auraframefx.network.models.ThemeColors
+import dev.aurakai.auraframefx.network.model.Theme
+import dev.aurakai.auraframefx.network.model.ThemeColors
 import dev.aurakai.auraframefx.ui.theme.AuraFrameFXTheme
 import dev.aurakai.auraframefx.ui.theme.picker.SpectraCodeReGen
 
