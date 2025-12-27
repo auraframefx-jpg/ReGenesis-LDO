@@ -490,12 +490,6 @@ class TaskExecutionManager @Inject constructor(
     }
 }
 
-private fun processRequest(
-    request: AiRequest,
-): AgentResponse {
-    TODO("Not yet implemented")
-}
-
 // Supporting data classes and enums
 @KotlinxSerializable
 data class ExecutionStats(
