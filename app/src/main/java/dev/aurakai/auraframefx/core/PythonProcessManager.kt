@@ -349,7 +349,7 @@ class PythonProcessManager @Inject constructor(
             try {
                 reader?.forEachLine { line ->
                     if (line.isNotBlank()) {
-                        responseChannel.send(line)
+                        responseChannel.trySend(line)
                     }
                 }
             } catch (e: Exception) {
