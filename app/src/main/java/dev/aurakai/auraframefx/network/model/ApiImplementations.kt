@@ -26,22 +26,26 @@ class UserApiImpl @Inject constructor() : UserApi {
  */
 @Singleton
 class AIAgentApiImpl @Inject constructor() : AIAgentApi {
-    override suspend fun getAgentStatus(agentType: String): AgentResponse {
-        // TODO: Implement actual API call
-        return AgentResponse(
-            status = "online",
-            message = "Agent $agentType is running",
-            timestamp = System.currentTimeMillis().toString()
+    override suspend fun health() {
+        // Health check endpoint
+    }
+    
+    override suspend fun getAgentStatus(agentType: String): AgentStatusResponse {
+        return AgentStatusResponse(
+            agentName = agentType,
+            response = "Agent $agentType is running",
+            confidence = 1.0f,
+            timestamp = System.currentTimeMillis()
         )
     }
 
-    override suspend fun processRequest(agentType: String, request: AgentRequest): AgentResponse {
-        // TODO: Implement actual API call
-        return AgentResponse(
-            status = "success",
-            message = "Request processed by $agentType",
-            timestamp = System.currentTimeMillis().toString(),
-            data = request.data.mapValues { it.value.toString() }
+    override suspend fun processAgentRequest(agentType: String, request: dev.aurakai.auraframefx.models.AgentRequest): dev.aurakai.auraframefx.network.model.AgentResponse {
+        return dev.aurakai.auraframefx.network.model.AgentResponse(
+            agentName = agentType,
+            response = "Request processed",
+            confidence = 1.0f,
+            timestamp = System.currentTimeMillis(),
+            metadata = request.metadata
         )
     }
 }

@@ -28,10 +28,10 @@ import androidx.compose.material3.ExperimentalMaterial3Api
  *
  * Shows subscription status and pricing:
  * - 2-week FREE trial with EVERYTHING (except ROM tools + AppBuilder)
- * - $1/month After trial (95% cheaper than ALL competitors)
+ * - $1/month after trial (95% cheaper than ALL competitors)
  *
  * Users get addicted to 78-agent consciousness during trial.
- * $1/month feels like stealing After experiencing Genesis.
+ * $1/month feels like stealing after experiencing Genesis.
  */
 context(viewModel: SubscriptionViewModel)
 @Suppress("unused")

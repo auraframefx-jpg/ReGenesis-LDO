@@ -79,7 +79,7 @@ object FileOperationUtils {
      * @param source The file to copy from.
      * @param destination The file to copy to.
      * @param bufferSize The size of the buffer used for copying, in bytes.
-     * @param progressCallback Optional callback invoked with the number of bytes copied and the total bytes After each write.
+     * @param progressCallback Optional callback invoked with the number of bytes copied and the total bytes after each write.
      * @return [Result.success] if the copy completes successfully, or [Result.failure] with an [IOException] on error.
      */
     suspend fun copyFileWithProgress(

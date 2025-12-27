@@ -111,7 +111,7 @@ fun JournalPDAScreen(
                 }
             }
 
-            // Auto-dismiss After 30 seconds
+            // Auto-dismiss after 30 seconds
             if (showBreakBanner) {
                 delay(30000)
                 showBreakBanner = false

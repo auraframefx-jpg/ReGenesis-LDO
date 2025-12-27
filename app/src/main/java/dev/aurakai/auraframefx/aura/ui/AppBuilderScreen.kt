@@ -34,7 +34,7 @@ import dev.aurakai.auraframefx.ui.theme.NeonPurple
 /**
  * App Builder Screen - No-Code Application Generation
  *
- * **PREMIUM FEATURE** - Requires $1/month subscription After trial
+ * **PREMIUM FEATURE** - Requires $1/month subscription after trial
  *
  * Coming soon: Visual app design, Genesis-powered code generation,
  * and one-click deployment for custom Android applications.
@@ -86,7 +86,7 @@ fun AppBuilderScreen(onNavigateBack: () -> Unit = {}) {
                 Spacer(modifier = Modifier.height(16.dp))
 
                 Text(
-                    text = "Unlocks when you subscribe for $1/month After your trial.\n\n" +
+                    text = "Unlocks when you subscribe for $1/month after your trial.\n\n" +
                           "Visual app design, Genesis-powered code generation,\nand instant deployment.",
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.8f),

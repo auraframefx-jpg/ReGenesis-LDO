@@ -76,7 +76,7 @@ fun DraggableCharacter(
                             hasEscaped = false
                         )
 
-                        // Try to escape After 1 second
+                        // Try to escape after 1 second
                         coroutineScope.launch {
                             delay(1000)
                             if (dragState.isDragging && !dragState.hasTriedEscape) {

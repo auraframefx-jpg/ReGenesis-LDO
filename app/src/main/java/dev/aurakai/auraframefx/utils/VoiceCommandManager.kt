@@ -92,7 +92,7 @@ open class VoiceCommandManager @Inject constructor(
             Timber.e("Voice Error: $errorMessage")
             _voiceState.value = VoiceState.Error(errorMessage)
             isListening = false
-            // Reset to idle After error
+            // Reset to idle after error
             speechRecognizer?.destroy()
             speechRecognizer = null
         }

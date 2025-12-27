@@ -45,7 +45,7 @@ fun AgentChatBubble(
 
     LaunchedEffect(notification) {
         isVisible = true
-        delay(5000) // Auto-dismiss After 5 seconds
+        delay(5000) // Auto-dismiss after 5 seconds
         isVisible = false
         delay(300)
         onDismiss()

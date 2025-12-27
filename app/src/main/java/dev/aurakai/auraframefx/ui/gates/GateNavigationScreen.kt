@@ -211,7 +211,7 @@ private fun TeleportingGateCard(
         targetValue = if (isHovering) 1.02f else 1f,
         label = "hover_scale"
     )
-    // When enter overlay triggers, auto hide After duration
+    // When enter overlay triggers, auto hide after duration
     LaunchedEffect(showEnterOverlay) {
         if (showEnterOverlay) {
             // Hide shortly before navigation occurs (navigation delay is 800ms)
@@ -384,7 +384,7 @@ private fun GatePageIndicator(
             }
         }
 
-        // Show ellipsis if there are more gates After
+        // Show ellipsis if there are more gates after
         if (endIndex < gates.size) {
             Text(
                 text = "...",

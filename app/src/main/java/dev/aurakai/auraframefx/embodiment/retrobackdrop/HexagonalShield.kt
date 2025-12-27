@@ -65,7 +65,7 @@ class HexagonalShield {
 
         val elapsed = System.currentTimeMillis() - activationTime
 
-        // Deactivate After 2 seconds
+        // Deactivate after 2 seconds
         if (elapsed >= SHIELD_DURATION) {
             isActive = false
             lastActivationEnd = System.currentTimeMillis()

@@ -60,7 +60,7 @@ class CascadeAIService @Inject constructor(
      *
      * This suspending function returns a Flow that:
      * - immediately emits an initial "processing" CascadeResponse,
-     * - emits an intermediate CascadeResponse After each selected agent completes (progress text like "Agent X processing... (i/n)"),
+     * - emits an intermediate CascadeResponse after each selected agent completes (progress text like "Agent X processing... (i/n)"),
      * - emits a final synthesized CascadeResponse that aggregates all agent outputs,
      * - if an unexpected error occurs, emits a single error CascadeResponse describing the failure.
      *

@@ -25,7 +25,7 @@ import java.net.URI
  *
  *
  * @param provider The OAuth provider (e.g., \"Google\", \"Firebase\", \"CustomAuth\").
- * @param redirectUri The URI to redirect to After successful authentication.
+ * @param redirectUri The URI to redirect to after successful authentication.
  */
 @Serializable
 
@@ -35,7 +35,7 @@ data class OAuthStartRequest(
     @SerialName(value = "provider")
     val provider: String,
 
-    /* The URI to redirect to After successful authentication. */
+    /* The URI to redirect to after successful authentication. */
     @Contextual @SerialName(value = "redirectUri")
     val redirectUri: URI,
 

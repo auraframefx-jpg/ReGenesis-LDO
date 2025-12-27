@@ -70,7 +70,7 @@ class GenesisSystemHooks {
                     }
                 }
                 after {
-                    // Reset priority After AI transaction
+                    // Reset priority after AI transaction
                     if (isGenesisAITransaction()) {
                         android.os.Process.setThreadPriority(android.os.Process.THREAD_PRIORITY_DEFAULT)
                     }

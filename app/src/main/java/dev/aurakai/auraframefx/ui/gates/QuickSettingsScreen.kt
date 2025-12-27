@@ -257,7 +257,7 @@ fun QuickSettingsScreen(
                     )
                     Spacer(modifier = Modifier.width(16.dp))
                     Text(
-                        text = "Auto-collapse After use",
+                        text = "Auto-collapse after use",
                         modifier = Modifier.weight(1f),
                         color = Color.White
                     )

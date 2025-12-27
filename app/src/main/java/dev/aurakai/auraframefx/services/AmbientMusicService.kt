@@ -25,7 +25,7 @@ class AmbientMusicService @Inject constructor() : Service() {
     /**
      * Handles a request to start the service and specifies that it should not be restarted if terminated by the system.
      *
-     * @return `START_NOT_STICKY` to indicate the service will not be recreated automatically After being killed.
+     * @return `START_NOT_STICKY` to indicate the service will not be recreated automatically after being killed.
      */
     override fun onStartCommand(_intent: Intent?, _flags: Int, _startId: Int): Int {
         // TODO: Implement service logic for starting the service.

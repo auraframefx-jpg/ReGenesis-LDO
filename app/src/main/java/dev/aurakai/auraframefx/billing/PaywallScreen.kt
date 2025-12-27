@@ -320,7 +320,7 @@ fun FeatureLockedBanner(
             )
             Spacer(Modifier.height(8.dp))
             Text(
-                text = "This feature unlocks when you subscribe for $1/month After your trial.",
+                text = "This feature unlocks when you subscribe for $1/month after your trial.",
                 style = MaterialTheme.typography.bodyMedium,
                 color = Color.White.copy(alpha = 0.8f),
                 textAlign = TextAlign.Center

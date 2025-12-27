@@ -238,7 +238,7 @@ class TaskExecutionManager @Inject constructor(
     /**
      * Launches a background coroutine that continuously processes tasks from the queue while processing is enabled.
      *
-     * Introduces a brief delay between processing cycles to minimize CPU usage, and applies a longer delay After encountering errors to provide backoff.
+     * Introduces a brief delay between processing cycles to minimize CPU usage, and applies a longer delay after encountering errors to provide backoff.
      */
 
     private fun startTaskProcessor() {
@@ -521,7 +521,7 @@ class TaskPriorityComparator : Comparator<TaskExecution1> {
      *
      * Tasks with higher priority are ordered before those with lower priority. If priorities are equal, tasks scheduled for earlier execution are ordered first.
      *
-     * @return A negative integer if the first task should be ordered before the second, a positive integer if After, or zero if they are considered equal.
+     * @return A negative integer if the first task should be ordered before the second, a positive integer if after, or zero if they are considered equal.
      */
     override fun compare(t1: TaskExecution1, t2: TaskExecution1): Int {
         // Higher priority first, then earlier scheduled time

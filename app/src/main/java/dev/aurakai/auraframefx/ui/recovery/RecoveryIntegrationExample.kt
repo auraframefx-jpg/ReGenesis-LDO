@@ -82,7 +82,7 @@ package dev.aurakai.auraframefx.ui.recovery
  *     // Listen to navigation changes
  *     val currentRoute by navController.currentBackStackEntryAsState()
  *
- *     // Save snapshot After each successful navigation
+ *     // Save snapshot after each successful navigation
  *     LaunchedEffect(currentRoute) {
  *         currentRoute?.destination?.route?.let { route ->
  *             recoveryManager.saveSnapshot(

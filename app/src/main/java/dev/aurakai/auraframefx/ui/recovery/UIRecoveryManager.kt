@@ -61,7 +61,7 @@ open class UIRecoveryManager @Inject constructor(
     /**
      * Save a snapshot of current UI state as "last known good"
      *
-     * Should be called After successful navigation or major UI state changes.
+     * Should be called after successful navigation or major UI state changes.
      *
      * @param snapshot Current UI state to preserve
      */

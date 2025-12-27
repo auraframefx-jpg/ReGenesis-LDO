@@ -175,7 +175,7 @@ class GenesisSelfHooks {
         //            YLog.info("Genesis-Hook: AI processing method called: ${method.name}")
         //            optimizeAIProcessing()
         //        }
-        //        After {
+        //        after {
         //            YLog.info("Genesis-Hook: AI processing completed: ${method.name}")
         //            collectAIMetrics()
         //        }

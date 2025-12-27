@@ -122,8 +122,8 @@ open class FeatureGateManager @Inject constructor(
         return when (state) {
             is SubscriptionState.InTrial -> {
                 when (feature) {
-                    "ROM_TOOLS" -> "ROM tools unlock After subscribing ($1/month). ${state.daysRemaining} days left in trial."
-                    "APP_BUILDER" -> "App Builder unlocks After subscribing ($1/month). ${state.daysRemaining} days left in trial."
+                    "ROM_TOOLS" -> "ROM tools unlock after subscribing ($1/month). ${state.daysRemaining} days left in trial."
+                    "APP_BUILDER" -> "App Builder unlocks after subscribing ($1/month). ${state.daysRemaining} days left in trial."
                     else -> "This feature unlocks with subscription ($1/month)."
                 }
             }

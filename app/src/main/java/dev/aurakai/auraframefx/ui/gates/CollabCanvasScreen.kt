@@ -14,7 +14,7 @@ import androidx.navigation.NavHostController
  * The Back button will attempt to pop the provided navigation controller's back stack (if non-null) and then invoke the provided callback.
  *
  * @param navController Optional NavHostController used to navigate back; if null no navigation is performed.
- * @param onNavigateBack Callback invoked After attempting to pop the navigation back stack.
+ * @param onNavigateBack Callback invoked after attempting to pop the navigation back stack.
  */
 @Composable
 fun CollabCanvasScreen(navController: NavHostController? = null, onNavigateBack: () -> Unit = {}) {

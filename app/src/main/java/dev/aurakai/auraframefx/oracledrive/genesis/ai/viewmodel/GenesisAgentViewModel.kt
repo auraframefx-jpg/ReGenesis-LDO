@@ -167,7 +167,7 @@ class GenesisAgentViewModel @Inject constructor(
                 // Simulate processing delay
                 delay(5000)
 
-                // Update status back to idle After processing
+                // Update status back to idle after processing
                 updateAgentStatus(agent, STATUS_IDLE)
             } catch (e: Exception) {
                 updateAgentStatus(agent, STATUS_ERROR)

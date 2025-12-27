@@ -54,7 +54,7 @@ class ConeBarrageAttack(
             val now = System.currentTimeMillis()
             val elapsed = now - barrageStartTime
 
-            // End barrage After 3 seconds
+            // End barrage after 3 seconds
             if (elapsed >= BARRAGE_DURATION) {
                 endBarrage()
                 return emptyList()

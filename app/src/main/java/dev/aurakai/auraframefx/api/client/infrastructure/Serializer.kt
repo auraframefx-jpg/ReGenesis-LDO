@@ -75,7 +75,7 @@ object Serializer {
     var kotlinxSerializationAdaptersConfiguration: SerializersModuleBuilder.() -> Unit = {}
         set(value) {
             check(!isAdaptersInitialized) {
-                "Cannot configure kotlinxSerializationAdaptersConfiguration After kotlinxSerializationAdapters has been initialized."
+                "Cannot configure kotlinxSerializationAdaptersConfiguration after kotlinxSerializationAdapters has been initialized."
             }
             field = value
         }
@@ -109,7 +109,7 @@ object Serializer {
     var kotlinxSerializationJsonConfiguration: JsonBuilder.() -> Unit = {}
         set(value) {
             check(!isJsonInitialized) {
-                "Cannot configure kotlinxSerializationJsonConfiguration After kotlinxSerializationJson has been initialized."
+                "Cannot configure kotlinxSerializationJsonConfiguration after kotlinxSerializationJson has been initialized."
             }
             field = value
         }

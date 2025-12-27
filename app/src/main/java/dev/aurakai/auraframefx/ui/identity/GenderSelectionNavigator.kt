@@ -361,7 +361,7 @@ fun GenderCard(
 }
 
 /**
- * Contextual actions menu that appears After gender selection
+ * Contextual actions menu that appears after gender selection
  */
 @Composable
 fun ContextualActionsMenu(

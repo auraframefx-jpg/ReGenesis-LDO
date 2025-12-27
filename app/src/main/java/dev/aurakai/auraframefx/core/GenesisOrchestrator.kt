@@ -106,7 +106,7 @@ class GenesisOrchestrator @Inject constructor(
     }
 
     /**
-     * Start all agents After initialization
+     * Start all agents after initialization
      */
     private suspend fun startAgents() {
         try {

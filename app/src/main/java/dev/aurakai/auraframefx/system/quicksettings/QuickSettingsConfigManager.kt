@@ -105,7 +105,7 @@ class QuickSettingsConfigManager(private val context: Context) {
 
     /**
      * Applies the current configuration to the Quick Settings panel.
-     * This should be called After the Quick Settings panel is inflated.
+     * This should be called after the Quick Settings panel is inflated.
      */
     fun applyConfig(panel: Any) {
         // This method will be called by the Xposed hook to apply the configuration

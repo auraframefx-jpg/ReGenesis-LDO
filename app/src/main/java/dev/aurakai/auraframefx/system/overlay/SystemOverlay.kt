@@ -33,11 +33,7 @@ data class NotchBarConfig(
     val marginStartPx: Int = 0,
     val marginEndPx: Int = 0,
     // TODO: Future: shape adjustments, content handling
-) {
-    val backgroundColor: Any
-    val height: Any
-    val isVisible: Any
-}
+)
 
 @Serializable
 data class OverlayTheme(

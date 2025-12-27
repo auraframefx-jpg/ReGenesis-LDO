@@ -102,7 +102,7 @@ val taskHistoryState by taskHistory.collectAsState(initial = emptyList())
  *
  * The component displays agent nodes arranged around a central Genesis node, supports drag-to-assign tasks, updates a local task history,
  * and reflects per-agent statuses (e.g., "idle", "processing", "error"). User interactions that submit tasks invoke viewModel.processQuery(...)
- * and update agent statuses and the task history; agent statuses automatically reset After simulated processing delays.
+ * and update agent statuses and the task history; agent statuses automatically reset after simulated processing delays.
  *
  * @param viewModel View model providing agent configurations and task processing; defaults to the ambient view model.
  * @param modifier Modifier applied to the root container.
@@ -618,7 +618,7 @@ fun HaloView(
                     try {
                         val actualAgentType = AgentType.valueOf(foundAgentConfig.name.uppercase(Locale.ROOT))
                         agentStatus[actualAgentType] = "processing"
-                        // Simulate task completion After a delay
+                        // Simulate task completion after a delay
                         coroutineScope.launch {
                             delay(5000) // Simulate processing time
                             agentStatus[actualAgentType] = "idle"

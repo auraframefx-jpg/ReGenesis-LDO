@@ -52,7 +52,7 @@ data class Offset(val x: Float, val y: Float) {
      * Adds the x and y components of the two offsets.
      *
      * @param other The offset to add.
-     * @return The resulting offset After addition.
+     * @return The resulting offset after addition.
      */
     operator fun plus(other: Offset): Offset = Offset(x + other.x, y + other.y)
 

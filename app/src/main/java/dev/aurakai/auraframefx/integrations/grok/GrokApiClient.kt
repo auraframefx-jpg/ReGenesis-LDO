@@ -108,7 +108,7 @@ class GrokApiClient @Inject constructor() {
 
                     HttpStatusCode.TooManyRequests -> {
                         val retryAfter = response.headers["Retry-After"]?.toLongOrNull() ?: 5L
-                        Timber.w("⏳ Rate limited. Retrying After ${retryAfter}s")
+                        Timber.w("⏳ Rate limited. Retrying after ${retryAfter}s")
                         delay(retryAfter * 1000)
                         continue
                     }

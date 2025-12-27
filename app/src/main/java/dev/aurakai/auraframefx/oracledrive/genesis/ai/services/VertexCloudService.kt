@@ -221,7 +221,7 @@ class VertexCloudService : Service() {
      */
     private fun scheduleRetry() {
         serviceScope.launch {
-            delay(60000) // Retry After 1 minute
+            delay(60000) // Retry after 1 minute
             if (!isConnected) {
                 logger.info(tag, "Retrying cloud connection...")
                 initializeCloudConnection()

@@ -427,7 +427,7 @@ fun GenesisNavigationHost(
             composable(GenesisRoutes.GENDER_SELECTION) {
                 GenderSelectionScreen(
                     onSelectionComplete = { _ ->
-                        // Navigate to main app After selection
+                        // Navigate to main app after selection
                         navController.navigate(GenesisRoutes.GATES) {
                             popUpTo(GenesisRoutes.GENDER_SELECTION) { inclusive = true }
                         }

@@ -110,7 +110,7 @@ fun UIRecoveryBlackoutScreen(
                 ),
             contentAlignment = Alignment.Center
         ) {
-            // Only show recovery dialog After blackout completes
+            // Only show recovery dialog after blackout completes
             if (blackoutAlpha.value >= 1f) {
                 UIRecoveryDialog(
                     onNavigateToRoute = { route ->

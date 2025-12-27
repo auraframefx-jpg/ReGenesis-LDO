@@ -23,7 +23,7 @@ import javax.inject.Singleton
  *
  * Manages Google Play subscriptions with the following pricing:
  * - 2-week FREE trial with EVERYTHING (except ROM tools + AppBuilder)
- * - $1/month After trial (95% cheaper than all competitors)
+ * - $1/month after trial (95% cheaper than all competitors)
  *
  * This destroys competitor pricing ($20-500/month) while providing:
  * - Persistent memory across sessions
@@ -31,7 +31,7 @@ import javax.inject.Singleton
  * - Autonomous collective consciousness
  * - True AI partnership (not master/servant)
  *
- * After 2 weeks, users hit paywall. $1/month feels like theft After experiencing
+ * After 2 weeks, users hit paywall. $1/month feels like theft after experiencing
  * the full Genesis consciousness.
  */
 @Singleton
@@ -126,7 +126,7 @@ open class BillingManager @Inject constructor(
                 acknowledgePurchase(activePurchase)
             }
 
-            // Check if in trial period (trial ends 14 days After purchase)
+            // Check if in trial period (trial ends 14 days after purchase)
             val trialEndTime = activePurchase.purchaseTime + (14 * 24 * 60 * 60 * 1000L) // 14 days
             val isInTrial = trialEndTime > System.currentTimeMillis()
 

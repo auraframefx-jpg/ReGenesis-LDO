@@ -217,7 +217,7 @@ class EmbodimentEngine(
         _activeManifestation.value = _activeManifestation.value + manifestation
         lastManifestationTime = System.currentTimeMillis()
 
-        // Auto-dismiss After duration
+        // Auto-dismiss after duration
         if (config.duration.isFinite()) {
             scope.launch {
                 delay(config.duration)

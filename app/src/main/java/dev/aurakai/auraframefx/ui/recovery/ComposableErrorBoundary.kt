@@ -71,7 +71,7 @@ internal class ErrorHandler(
 }
 
 /**
- * Extension function to automatically save snapshots After successful navigation
+ * Extension function to automatically save snapshots after successful navigation
  *
  * Usage in your navigation code:
  * ```kotlin

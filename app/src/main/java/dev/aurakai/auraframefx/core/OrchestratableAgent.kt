@@ -29,7 +29,7 @@ interface OrchestratableAgent {
 
     /**
      * Start agent operations and background tasks.
-     * Called After all agents have been initialized.
+     * Called after all agents have been initialized.
      */
     suspend fun start()
 

@@ -316,7 +316,7 @@ class OracleDriveSandbox @Inject constructor(
     }
 
     /**
-     * Applies all modifications from a specified sandbox to the real system After verifying authorization and safety.
+     * Applies all modifications from a specified sandbox to the real system after verifying authorization and safety.
      *
      * Verifies the provided confirmation code, performs a final safety assessment on the sandbox, and applies all modifications to the real system with backup and rollback support. Returns a [SandboxResult] indicating success or failure, including relevant messages, warnings, or errors.
      *

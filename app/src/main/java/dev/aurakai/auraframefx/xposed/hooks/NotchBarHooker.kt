@@ -1,12 +1,12 @@
 package dev.aurakai.auraframefx.xposed.hooks
 
+import android.graphics.Color
 import android.view.View
 import android.view.ViewGroup
-import androidx.compose.remote.creation.compose.state.toString
+import de.robv.android.xposed.XC_MethodHook
 import de.robv.android.xposed.XposedBridge
 import de.robv.android.xposed.XposedHelpers
 import dev.aurakai.auraframefx.system.overlay.NotchBarConfig
-import kotlin.toString
 
 /**
  * Xposed hooker for customizing the Android notch bar (status bar cutout area).
@@ -15,7 +15,6 @@ import kotlin.toString
 class NotchBarHooker(
     private val classLoader: ClassLoader,
     private val config: NotchBarConfig,
-    val instance: View,
 ) {
     /**
      * Applies Xposed hooks to customize the notch bar appearance and behavior.
@@ -25,55 +24,69 @@ class NotchBarHooker(
      * - Notch bar height/size
      * - Notch bar visibility
      */
-    fun applyNotchBarHooks(after: (() -> Unit?) -> After) = try {
-        // Hook the PhoneStatusBarView or similar system UI class
-        // Note: Actual class names vary by Android version and OEM
-        val statusBarClass = XposedHelpers.findClass(
-            "com.android.systemui.statusbar.phone.PhoneStatusBarView",
-            classLoader
-        )
+    fun applyNotchBarHooks() {
+        try {
+            // Hook the PhoneStatusBarView or similar system UI class
+            // Note: Actual class names vary by Android version and OEM
+            val statusBarClass = XposedHelpers.findClass(
+                "com.android.systemui.statusbar.phone.PhoneStatusBarView",
+                classLoader
+            )
 
-        // Hook the onFinishInflate method to apply customizations
-        hook {
-            after {
-                val view = this.instance
-                // Apply notch bar color if configured
-                config.backgroundColor.let { color ->
-                    try {
-                        val backgroundField = view::class.java.getDeclaredField("mBackground")
-                        backgroundField.isAccessible = true
-                        backgroundField.set(view, color)
-                    } catch (_: Exception) {
+            // Hook the onFinishInflate method to apply customizations
+            XposedHelpers.findAndHookMethod(
+                statusBarClass,
+                "onFinishInflate",
+                object : XC_MethodHook() {
+                    override fun afterHookedMethod(param: MethodHookParam) {
+                        try {
+                            val view = param.thisObject as View
+                            
+                            // Apply notch bar color if configured
+                            config.backgroundColor?.let { colorValue ->
+                                try {
+                                    val color = when (colorValue) {
+                                        is Int -> colorValue
+                                        is String -> Color.parseColor(colorValue)
+                                        else -> null
+                                    }
+                                    color?.let { view.setBackgroundColor(it) }
+                                } catch (e: Exception) {
+                                    XposedBridge.log("NotchBarHooker: Failed to set background color: ${e.message}")
+                                }
+                            }
+
+                            // Apply notch bar height if configured
+                            config.height?.let { height ->
+                                try {
+                                    val layoutParams = view.layoutParams ?: ViewGroup.LayoutParams(
+                                        ViewGroup.LayoutParams.MATCH_PARENT,
+                                        height
+                                    )
+                                    layoutParams.height = height
+                                    view.layoutParams = layoutParams
+                                } catch (e: Exception) {
+                                    XposedBridge.log("NotchBarHooker: Failed to set height: ${e.message}")
+                                }
+                            }
+
+                            // Apply visibility if configured
+                            config.isVisible?.let { visible ->
+                                try {
+                                    view.visibility = if (visible) View.VISIBLE else View.GONE
+                                } catch (e: Exception) {
+                                    XposedBridge.log("NotchBarHooker: Failed to set visibility: ${e.message}")
+                                }
+                            }
+                        } catch (e: Exception) {
+                            XposedBridge.log("NotchBarHooker: Error in afterHookedMethod: ${e.message}")
+                        }
                     }
                 }
-
-                // Apply notch bar height if configured
-                config.height.let { height ->
-                    try {
-                        val layoutParams = view.layoutParams ?: ViewGroup.toString(
-                            ViewGroup.LayoutParams.MATCH_PARENT,
-                            height
-                        )
-                        layoutParams.height = height as Int
-                        view.layoutParams = layoutParams
-                    } catch (e: Exception) {
-                        XposedBridge.log("NotchBarHooker: Failed to set height: ${e.message}")
-                    }
-                }
-
-                // Apply visibility if configured
-                if (config.isVisible == false) {
-                    view.visibility = View.GONE
-                }
-            }
+            )
+        } catch (e: Exception) {
+            // Log error but don't crash - notch bar customization is optional
+            XposedBridge.log("NotchBarHooker: Failed to apply notch bar hooks: ${e.message}")
         }
-    } catch (e: Exception) {
-        // Log error but don't crash - notch bar customization is optional
-        XposedBridge.log("NotchBarHooker: Failed to apply notch bar hooks: ${e.message}")
     }
 }
-
-private fun hook(function: () -> After) {
-}
-
-annotation class After
