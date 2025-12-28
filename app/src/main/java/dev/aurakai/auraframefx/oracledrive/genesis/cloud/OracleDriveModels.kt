@@ -174,8 +174,3 @@ data class SecurityValidation(
     val threatLevel: Int = 0,
     val reason: String = ""
 )
-
-/**
- * Oracle Drive API annotation
- */
-annotation class OracleDriveApi

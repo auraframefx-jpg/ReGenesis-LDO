@@ -308,13 +308,6 @@ class SecurityContext @Inject constructor(
     }
 }
 
-sealed class EncryptionStatus {
-    data object NOT_INITIALIZED : EncryptionStatus()
-    data object ACTIVE : EncryptionStatus()
-    data object DISABLED : EncryptionStatus()
-    data object ERROR : EncryptionStatus()
-}
-
 @Serializable
 data class SecurityState(
     val detectedThreats: List<SecurityThreat> = emptyList(),
