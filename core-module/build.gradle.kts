@@ -11,7 +11,7 @@ plugins {
 
 extensions.configure<LibraryExtension> {
     namespace = "dev.aurakai.auraframefx.core.module"
-    // Java 24 compileOptions are set by genesis.android.base
+    // Java 25 compileOptions are set by genesis.android.library
 }
 
 dependencies {
@@ -21,7 +21,7 @@ dependencies {
     // - Hilt (android + compiler via KSP)
     // - Timber, Coroutines
     // - Compose enabled by default
-    // - Java 24 bytecode target
+    // - Java 25 bytecode target
     // ═══════════════════════════════════════════════════════════════════════
     
     // Hilt - Explicit dependencies

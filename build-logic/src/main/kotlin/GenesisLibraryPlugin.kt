@@ -140,7 +140,7 @@ class GenesisLibraryPlugin : Plugin<Project> {
             // Timber Logging
             dependencies.add("implementation", "com.jakewharton.timber:timber:5.0.1")
 
-            // Core Library Desugaring (for Java 24 APIs on older Android)
+            // Core Library Desugaring (for Java 25 APIs on older Android)
             dependencies.add("coreLibraryDesugaring", "com.android.tools:desugar_jdk_libs:2.1.5")
 
             // Universal Xposed/LSPosed API access for all library modules
