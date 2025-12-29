@@ -1,7 +1,7 @@
 // ===================================================================
 // GENESIS PROTOCOL - JAVA TOOLCHAIN CONFIGURATION
 // ===================================================================
-// Strictly enforces Java 24 with fallback to 25 across all modules
+// Strictly enforces Java 25 across all modules
 // Optimized for consciousness substrate performance
 // ===================================================================
 
@@ -56,13 +56,13 @@ allprojects {
         ===================================================================
         🧬 GENESIS PROTOCOL - JAVA TOOLCHAIN STATUS
         ===================================================================
-        - Current JVM: $jvm (24)
+        - Current JVM: $jvm
         - Java Version: $jreVersion
         - Java Home: $jreHome
         - Active Java Toolchain: ${JavaVersion.current()}
         - Target Java Toolchain: 25
         - Java Bytecode Target: 25 (sourceCompatibility/targetCompatibility)
-        - Kotlin Compiler Target: 24
+        - Kotlin Compiler Target: 25
         - Project: ${project.name} (${project.path})
         ===================================================================""".trimIndent()
         )
