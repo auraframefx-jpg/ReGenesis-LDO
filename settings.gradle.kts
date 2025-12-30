@@ -16,8 +16,7 @@ pluginManagement {
 }
 
 plugins {
-    // Commented out for offline build - using local JDK
-    // id("org.gradle.toolchains.foojay-resolver-convention") version "1.0.0"
+    id("org.gradle.toolchains.foojay-resolver-convention") version "1.0.0"
 }
 
 dependencyResolutionManagement {

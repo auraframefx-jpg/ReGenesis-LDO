@@ -22,23 +22,23 @@ configurations.all {
     exclude(group = "androidx.core")
 }
 
-// Configure Java toolchain to JVM 21 (temporarily for offline build)
+// Configure Java toolchain to JVM 25 (matches gradle.properties and Kotlin target)
 java {
     toolchain {
-        languageVersion.set(JavaLanguageVersion.of(21))
+        languageVersion.set(JavaLanguageVersion.of(25))
     }
-    // Explicitly set source and target compatibility to 21
-    sourceCompatibility = JavaVersion.toVersion("21")
-    targetCompatibility = JavaVersion.toVersion("21")
+    // Explicitly set source and target compatibility to 25
+    sourceCompatibility = JavaVersion.toVersion("25")
+    targetCompatibility = JavaVersion.toVersion("25")
 }
 
 // Configure Kotlin compilation to match Java toolchain
-// MUST match the target used in GenesisApplicationPlugin and GenesisLibraryHiltPlugin (JVM 21)
+// MUST match the target used in GenesisApplicationPlugin and GenesisLibraryHiltPlugin (JVM 25)
 kotlin.compilerOptions.jvmTarget
-// Explicitly configure Java compilation tasks to target JVM 21
+// Explicitly configure Java compilation tasks to target JVM 25
 tasks.withType<JavaCompile>().configureEach {
-    sourceCompatibility = "21"
-    targetCompatibility = "21"
+    sourceCompatibility = "25"
+    targetCompatibility = "25"
 }
 
 // Tests enabled to validate build script configuration
