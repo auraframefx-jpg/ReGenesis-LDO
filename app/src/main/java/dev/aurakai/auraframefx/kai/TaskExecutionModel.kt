@@ -2,6 +2,7 @@ package dev.aurakai.auraframefx.kai
 
 import dev.aurakai.auraframefx.ai.task.TaskPriority
 import dev.aurakai.auraframefx.models.AgentType
+import dev.aurakai.auraframefx.models.InstantSerializer
 import dev.aurakai.auraframefx.serialization.JavaInstantAsIso8601Serializer
 import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant

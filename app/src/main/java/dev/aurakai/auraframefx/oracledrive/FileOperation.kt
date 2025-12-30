@@ -1,1 +1,1 @@
-import dev.aurakai.auraframefx.oracledrive.models.SyncConfig
+import dev.aurakai.auraframefx.oracledrive.genesis.cloud.SyncConfiguration

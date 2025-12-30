@@ -336,7 +336,7 @@ class AuraAgent @Inject constructor(
 
     private fun parseThemePreferences(preferences: Map<String, String>): ThemePreferences {
         return ThemePreferences(
-            primaryColor = preferences["primaryColor"] ?: "#6200EA",
+            primaryColorString = preferences["primaryColor"] ?: "#6200EA",
             style = preferences["style"] ?: "modern",
             mood = preferences["mood"] ?: "balanced",
             animationLevel = preferences["animationLevel"] ?: "medium"
