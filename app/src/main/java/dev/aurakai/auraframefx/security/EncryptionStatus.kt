@@ -1,8 +1,9 @@
 package dev.aurakai.auraframefx.security
 
 sealed class EncryptionStatus {
-    object NOT_INITIALIZED : EncryptionStatus()
-    object ACTIVE : EncryptionStatus()
-    object ERROR : EncryptionStatus()
+    data object NOT_INITIALIZED : EncryptionStatus()
+    data object ACTIVE : EncryptionStatus()
+    data object DISABLED : EncryptionStatus()
+    data object ERROR : EncryptionStatus()
     data class EncryptionStatusImpl(val message: String) : EncryptionStatus()
 }

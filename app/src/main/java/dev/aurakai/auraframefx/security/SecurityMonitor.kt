@@ -163,6 +163,7 @@ class SecurityMonitor @Inject constructor(
                         EncryptionStatus.DISABLED -> "warning" // Fixed: was INACTIVE
                         EncryptionStatus.ERROR -> "error"
                         EncryptionStatus.NOT_INITIALIZED -> "warning" // Added missing case
+                        is EncryptionStatus.EncryptionStatusImpl -> "warning"
                     },
                     source = "kai_encryption_monitor",
                     timestamp = System.currentTimeMillis(),
@@ -476,6 +477,7 @@ class SecurityMonitor @Inject constructor(
             EncryptionStatus.NOT_INITIALIZED -> 0.5
             EncryptionStatus.DISABLED -> 0.2
             EncryptionStatus.ERROR -> 0.0
+            is EncryptionStatus.EncryptionStatusImpl -> 0.3
         }
     }
 
@@ -526,11 +528,12 @@ class SecurityMonitor @Inject constructor(
     private fun generateSecurityRecommendations(): List<String> {
         val recommendations = mutableListOf<String>()
 
-        when (securityContext.encryptionStatus.value) {
+        when (val status = securityContext.encryptionStatus.value) {
             EncryptionStatus.ERROR -> recommendations.add("Critical: Fix encryption system immediately")
             EncryptionStatus.DISABLED -> recommendations.add("Enable encryption for data protection")
             EncryptionStatus.NOT_INITIALIZED -> recommendations.add("Initialize encryption system")
             EncryptionStatus.ACTIVE -> recommendations.add("Encryption: Operating optimally")
+            is EncryptionStatus.EncryptionStatusImpl -> recommendations.add("Encryption: ${status.message}")
         }
 
         if (!securityContext.threatDetectionActive.value) {

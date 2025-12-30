@@ -1,8 +1,9 @@
 package dev.aurakai.auraframefx.oracledrive.security
 
-// Using local security models
-// Note: SecurityCheck, AccessCheck, DeletionValidation are defined in SecurityModels.kt in this package
 import dev.aurakai.auraframefx.oracledrive.DriveFile
+import dev.aurakai.auraframefx.oracledrive.genesis.cloud.SecurityCheck
+import dev.aurakai.auraframefx.oracledrive.genesis.cloud.AccessCheck
+import dev.aurakai.auraframefx.oracledrive.genesis.cloud.DeletionValidation
 import dev.aurakai.auraframefx.oracledrive.genesis.cloud.SecurityValidation
 
 

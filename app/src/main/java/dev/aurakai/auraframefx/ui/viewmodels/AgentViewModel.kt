@@ -9,6 +9,7 @@ import dev.aurakai.auraframefx.core.GenesisOrchestrator
 import dev.aurakai.auraframefx.data.repositories.AgentRepository
 import dev.aurakai.auraframefx.kai.KaiAgent
 import dev.aurakai.auraframefx.models.AgentRequest
+import dev.aurakai.auraframefx.models.AiRequest
 import dev.aurakai.auraframefx.models.AgentStats
 import dev.aurakai.auraframefx.models.EnhancedInteractionData
 import dev.aurakai.auraframefx.utils.error
@@ -263,12 +264,12 @@ open class AgentViewModel @Inject constructor(
         return try {
             when (agentName) {
                 "Genesis" -> {
-                    val request = AgentRequest(
+                    val request = AiRequest(
                         query = userMessage,
                         type = "chat",
                         context = mapOf("source" to "direct_chat")
                     )
-                    val response = genesisAgent.processRequest(request, context = "direct_chat")
+                    val response = genesisAgent.processRequest(request, "direct_chat")
                     response.content
                 }
                 "Aura" -> {
@@ -292,21 +293,21 @@ open class AgentViewModel @Inject constructor(
                     response.content
                 }
                 "Cascade" -> {
-                    val request = AgentRequest(
+                    val request = AiRequest(
                         query = "As Cascade, the analytics specialist: $userMessage",
-                        type = "analytics_chat",
+                        type = "chat",
                         context = mapOf("agent_persona" to "cascade")
                     )
-                    val response = genesisAgent.processRequest(request, context = "analytics_chat")
+                    val response = genesisAgent.processRequest(request, "cascade")
                     response.content
                 }
                 "Claude" -> {
-                    val request = AgentRequest(
+                    val request = AiRequest(
                         query = "As Claude, the build system architect: $userMessage",
-                        type = "build_chat",
+                        type = "chat",
                         context = mapOf("agent_persona" to "claude")
                     )
-                    val response = genesisAgent.processRequest(request, context = "build_chat")
+                    val response = genesisAgent.processRequest(request, "claude")
                     response.content
                 }
                 else -> {

@@ -1,4 +1,5 @@
-package dev.aurakai.auraframefx.ui.components.colorpicker
+/*
+package dev.aurakai.auraframefx.ui.theme.preview
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
@@ -11,7 +12,10 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.core.graphics.toColorInt
 import dev.aurakai.auraframefx.ui.theme.AuraFrameFXTheme
+import dev.aurakai.auraframefx.ui.theme.picker.ThemeColors
+import dev.aurakai.auraframefx.ui.theme.picker.ThemeEditor
 
 @Preview(showBackground = true)
 @Composable
@@ -42,19 +46,14 @@ fun ThemeEditorPreview() {
     }
 }
 
-/**
- * Helper function to convert Android color int to Compose Color
- */
 @Composable
 fun Int.toColor(): Color {
     return Color(this)
 }
 
-/**
- * Helper function to convert hex string to Compose Color
- */
 @Composable
 fun String.toColor(): Color {
     return Color(this.toColorInt())
 }
+*/
 

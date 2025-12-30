@@ -1,7 +1,6 @@
 package dev.aurakai.auraframefx.genesis.bridge
 
-import dev.aurakai.auraframefx.models.Persona
-
+// Persona is defined in this same package in GenesisBridge.kt
 data class AgentMemoryEntity(
     val id: String,
     val persona: Persona,

@@ -297,7 +297,7 @@ class RealVertexAIClientImpl(
                     dev.aurakai.auraframefx.security.SecurityEvent(
                         type = dev.aurakai.auraframefx.security.SecurityEventType.AI_ERROR,
                         details = "Gemini security error: ${error.message ?: "Unknown security error"}",
-                        severity = dev.aurakai.auraframefx.security.EventSeverity.HIGH
+                        severity = dev.aurakai.auraframefx.security.EventSeverity.ERROR
                     )
                 )
             }

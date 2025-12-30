@@ -24,28 +24,34 @@ open class CloudStorageProviderImpl @Inject constructor() : CloudStorageProvider
     }
 
     override suspend fun uploadFile(file: DriveFile, metadata: FileMetadata): FileResult {
-        return FileResult.Error(Exception("Stub implementation - upload not configured"))
+        return FileResult.Error("Stub implementation - upload not configured", file.path)
     }
 
     override suspend fun uploadFile(file: java.io.File, metadata: Map<String, Any>?): FileResult {
         return try {
             if (!file.exists()) {
-                return FileResult.Error(Exception("File not found: ${file.absolutePath}"))
+                return FileResult.Error("File not found: ${file.absolutePath}")
             }
 
             // Genesis Implementation: Secure Cloud Upload Simulation
             FileResult.Success(
-                fileId = "cloud_${file.name}_${System.currentTimeMillis()}",
                 path = "genesis/cloud/${file.name}",
-                size = file.length(),
-                metadata = metadata ?: emptyMap()
+                bytesProcessed = file.length()
             )
         } catch (e: Exception) {
-            FileResult.Error(e)
+            FileResult.Error(e.message ?: "Upload failed", file.absolutePath)
         }
     }
 
+    override suspend fun downloadFile(fileId: String): FileResult {
+        return FileResult.Error("Stub implementation - download not configured", fileId)
+    }
+
+    override suspend fun deleteFile(fileId: String): FileResult {
+        return FileResult.Error("Stub implementation - delete not configured", fileId)
+    }
+
     override suspend fun intelligentSync(config: SyncConfiguration): FileResult {
-        return FileResult.Error(Exception("Stub implementation - sync not configured"))
+        return FileResult.Error("Stub implementation - sync not configured")
     }
 }

@@ -37,37 +37,37 @@ abstract class OracleCloudStorageProvider(
             if (!metadata.isNullOrEmpty()) Timber.d("OracleCloud: metadata keys=${metadata.keys}")
             val fileId = "oracle://${bucketName ?: "default"}/${file.name}-${file.length()}"
             Timber.d("OracleCloud: simulated upload -> $fileId")
-            FileResult.Success(fileId)
+            FileResult.Success(path = fileId, bytesProcessed = file.length())
         } catch (t: Throwable) {
             Timber.w(t, "OracleCloud: upload failed")
-            FileResult.Error(Exception(t))
+            FileResult.Error(message = t.message ?: "Upload failed", path = file.absolutePath)
         }
     }
 
     override suspend fun downloadFile(fileId: String): FileResult = withContext(Dispatchers.IO) {
         try {
             Timber.d("OracleCloud: simulated download -> $fileId")
-            FileResult.Success(fileId)
+            FileResult.Success(path = fileId, bytesProcessed = 0L)
         } catch (t: Throwable) {
             Timber.w(t, "OracleCloud: download failed")
-            FileResult.Error(Exception(t))
+            FileResult.Error(message = t.message ?: "Download failed", path = fileId)
         }
     }
 
     override suspend fun deleteFile(fileId: String): FileResult = withContext(Dispatchers.IO) {
         try {
             Timber.d("OracleCloud: simulated delete -> $fileId")
-            FileResult.Success(fileId)
+            FileResult.Success(path = fileId, bytesProcessed = 0L)
         } catch (t: Throwable) {
             Timber.w(t, "OracleCloud: delete failed")
-            FileResult.Error(Exception(t))
+            FileResult.Error(message = t.message ?: "Delete failed", path = fileId)
         }
     }
 
     override suspend fun intelligentSync(config: SyncConfiguration): FileResult = withContext(Dispatchers.IO) {
         // Simulate a sync operation
         Timber.d("OracleCloud: simulated intelligentSync -> $config")
-        return@withContext FileResult.Success("sync-complete")
+        return@withContext FileResult.Success(path = "sync-complete", bytesProcessed = 0L)
     }
 }
 

@@ -8,24 +8,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
-import androidx.compose.ui.graphics.*
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.drawscope.withTransform
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
-import kotlin.math.*
 import kotlin.random.Random
 
-/**
- * A custom composable that creates a holographic transition effect with scan lines, grid, and edge glow.
- *
- * @param visible Controls the visibility of the hologram effect
- * @param modifier Modifier to be applied to the layout
- * @param primaryColor Primary color for the hologram effect
- * @param secondaryColor Secondary color for the hologram effect
- * @param scanLineDensity Number of scan lines to display
- * @param glitchIntensity Intensity of the glitch effect (0f to 1f)
- * @param edgeGlowIntensity Intensity of the edge glow effect (0f to 1f)
- * @param content The content to be displayed with the hologram effect
- */
+// ... (existing imports)
+
 @Composable
 fun HologramTransition(
     visible: Boolean,
@@ -43,6 +35,8 @@ fun HologramTransition(
         transitionSpec = { tween(durationMillis = if (visible) 800 else 500) },
         label = "alpha"
     ) { if (it) 1f else 0f }
+
+    val density = LocalDensity.current.density
 
     // Scan line animation
     val infiniteTransition = rememberInfiniteTransition(label = "scanLine")
@@ -74,7 +68,7 @@ fun HologramTransition(
         ) {
             val width = size.width
             val height = size.height
-            val density = LocalDensity.current.density
+
 
             // Draw edge glow
             val edgeGlowBrush = Brush.linearGradient(
@@ -138,8 +132,7 @@ fun HologramTransition(
                     scale(
                         scaleX = glitchOffset,
                         scaleY = glitchOffset,
-                        pivotX = width / 2f,
-                        pivotY = height / 2f
+                        pivot = Offset(width / 2f, height / 2f)
                     )
                 }
             ) {

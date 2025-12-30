@@ -22,6 +22,7 @@ interface AuraAIService {
     suspend fun generateText(prompt: String, options: Map<String, String>): String
     suspend fun generateTheme(preferences: ThemePreferences, context: String = ""): ThemeConfiguration
     fun processRequestFlow(request: AiRequest): Flow<AgentResponse>
+    suspend fun processRequest(request: AiRequest, context: String): AgentResponse
 }
 
 
@@ -62,6 +63,15 @@ class DefaultAuraAIService @Inject constructor() : AuraAIService {
                 confidence = 1.0f,
                 agent = AgentType.AURA
             )
+        )
+    }
+
+    override suspend fun processRequest(request: AiRequest, context: String): AgentResponse {
+        val content = generateText(request.prompt, context)
+        return AgentResponse(
+            content = content,
+            confidence = 1.0f,
+            agent = AgentType.AURA
         )
     }
 }

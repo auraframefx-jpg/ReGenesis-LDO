@@ -246,11 +246,11 @@ class KaiAgent @Inject constructor(
         val securityIssues = detectSecurityIssues(code)
         val qualityMetrics = calculateCodeQuality(code)
         return mapOf(
-            "analysis" to codeAnalysis,
+            "analysis" to (codeAnalysis ?: "Analysis unavailable"),
             "security_issues" to securityIssues,
             "quality_metrics" to qualityMetrics,
             "recommendations" to generateCodeRecommendations(securityIssues, qualityMetrics)
-        )
+        ) as Map<String, Any>
     }
 
     private fun ensureInitialized() {

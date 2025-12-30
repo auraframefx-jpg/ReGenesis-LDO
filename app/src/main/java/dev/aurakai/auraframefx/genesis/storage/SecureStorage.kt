@@ -2,7 +2,6 @@ package dev.aurakai.auraframefx.genesis.storage
 
 import android.content.Context
 import dev.aurakai.auraframefx.genesis.security.CryptographyManager
-import dev.aurakai.auraframefx.oracledrive.service.FileMetadata
 
 /**
  * Secure storage interface for persistent metadata and small secure data portions.

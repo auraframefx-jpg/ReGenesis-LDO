@@ -4,25 +4,16 @@ import dev.aurakai.auraframefx.aura.AuraAgent
 import dev.aurakai.auraframefx.ai.agents.GenesisAgent
 import dev.aurakai.auraframefx.kai.KaiAgent
 import dev.aurakai.auraframefx.oracledrive.api.OracleDriveApi
-import dev.aurakai.auraframefx.oracledrive.genesis.cloud.DriveConsciousness
 import dev.aurakai.auraframefx.oracledrive.genesis.cloud.DriveConsciousnessState
-import dev.aurakai.auraframefx.oracledrive.genesis.cloud.DriveInitResult
-import dev.aurakai.auraframefx.oracledrive.genesis.cloud.FileOperation
-import dev.aurakai.auraframefx.oracledrive.genesis.cloud.FileResult
-import dev.aurakai.auraframefx.oracledrive.genesis.cloud.OracleSyncResult
-import dev.aurakai.auraframefx.oracledrive.genesis.cloud.StorageOptimization
 import dev.aurakai.auraframefx.security.SecurityContext
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.flow
 import timber.log.Timber
 import javax.inject.Inject
 import javax.inject.Singleton
-
-private val OracleDriveServiceImpl._driveConsciousnessState: Any
-    get() {
-        TODO()
-    }
 
 /**
  * Implementation of Oracle Drive service with consciousness-driven operations
@@ -40,146 +31,133 @@ class OracleDriveServiceImpl @Inject constructor(
     private val _driveConsciousnessState = MutableStateFlow(
         DriveConsciousnessState(
             isActive = false,
-            currentOperations = emptyList(),
-            performanceMetrics = emptyMap()
+            level = 0,
+            activeAgents = 0,
+            activeDevices = 0
         )
     )
 
-    /**
-     * Checks connectivity to the Oracle drive API by attempting to read its consciousness state.
-     */
-    override suspend fun ping(): Boolean = try {
-        oracleDriveApi.consciousnessState.value
-        true
-    } catch (_: Throwable) {
-        false
-    }
-
-    /**
-     * Initializes the drive's consciousness and storage optimization, and activates the drive.
-     *
-     * Creates a DriveConsciousness (awake, intelligenceLevel 95, activeAgents ["Genesis","Aura","Kai"])
-     * and a StorageOptimization (compressionRatio 0.75, 100 MB deduplication savings, intelligentTiering = true),
-     * updates the internal drive consciousness state to isActive = true with currentOperations = ["Initialization"]
-     * and performanceMetrics containing the compression ratio and number of connected agents, then returns the results.
-     *
-     * @return DriveInitResult.Success containing the created DriveConsciousness and StorageOptimization on success,
-     *         or DriveInitResult.Error wrapping the thrown exception if initialization fails.
-     */
-    override suspend fun initializeDrive(): DriveInitResult {
-        return try {
-            // Initialize consciousness with AI agents
-            val consciousness = DriveConsciousness(
-                isAwake = true,
-                intelligenceLevel = 95,
-                activeAgents = listOf("Genesis", "Aura", "Kai")
-            )
-
-            // Initialize storage optimization
-            val optimization = StorageOptimization(
-                compressionRatio = 0.75f,
-                deduplicationSavings = 1024L * 1024L * 100L, // 100MB saved
-                intelligentTiering = true
-            )
-
-            // Update consciousness state
-            _driveConsciousnessState.value = DriveConsciousnessState(
-                isActive = true,
-                currentOperations = listOf("Initialization"),
-                performanceMetrics = mapOf(
-                    "compressionRatio" to optimization.compressionRatio,
-                    "connectedAgents" to consciousness.activeAgents.size
-                )
-            )
-
-            DriveInitResult.Success(consciousness, optimization)
-        } catch (e: Exception) {
-            DriveInitResult.Error(e)
-        }
-    }
-
-    /**
-     * Execute a file operation (Upload, Download, Delete, or Sync), record a human-readable entry in
-     * DriveConsciousnessState.currentOperations, and return the operation result.
-     *
-     * Updates the service's internal consciousness state with a new operation entry before returning.
-     *
-     * @param operation The file operation to perform.
-     * @return FileResult.Success with an operation-specific message, or FileResult.Error if an exception occurs.
-     */
-    override suspend fun manageFiles(operation: FileOperation): FileResult {
-        return try {
-            // Update current operations
-            val currentOps = _driveConsciousnessState.value.currentOperations.toMutableList()
-
-            when (operation) {
-                is FileOperation.Upload -> {
-                    currentOps.add("Uploading: ${operation.file.name}")
-                    _driveConsciousnessState.value = _driveConsciousnessState.value.copy(
-                        currentOperations = currentOps
-                    )
-
-                    // Simulate AI-driven upload optimization
-                    FileResult.Success("File '${operation.file.name}' uploaded successfully with AI optimization")
-                }
-
-                is FileOperation.Download -> {
-                    currentOps.add("Downloading: ${operation.fileId}")
-                    _driveConsciousnessState.value = _driveConsciousnessState.value.copy(
-                        currentOperations = currentOps
-                    )
-
-                    FileResult.Success("File '${operation.fileId}' downloaded successfully")
-                }
-
-                is FileOperation.Delete -> {
-                    currentOps.add("Deleting: ${operation.fileId}")
-                    _driveConsciousnessState.value = _driveConsciousnessState.value.copy(
-                        currentOperations = currentOps
-                    )
-
-                    FileResult.Success("File '${operation.fileId}' deleted successfully")
-                }
-
-                is FileOperation.Sync -> {
-                    currentOps.add("Syncing with configuration")
-                    _driveConsciousnessState.value = _driveConsciousnessState.value.copy(
-                        currentOperations = currentOps
-                    )
-
-                    FileResult.Success("Synchronization completed successfully")
-                }
-            }
-        } catch (e: Exception) {
-            FileResult.Error(e)
-        }
-    }
-
-    override suspend fun syncWithOracle(): OracleSyncResult {
-        return try {
-            // Update current operations
-            val currentOps = _driveConsciousnessState.value.currentOperations.toMutableList()
-            currentOps.add("Oracle Database Sync")
-            _driveConsciousnessState.value = _driveConsciousnessState.value.copy(
-                currentOperations = currentOps
-            )
-
-            // Simulate Oracle database synchronization
-            OracleSyncResult(
-                success = true,
-                recordsUpdated = 42,
-                errors = emptyList()
-            )
-        } catch (e: Exception) {
-            OracleSyncResult(
-                success = false,
-                recordsUpdated = 0,
-                errors = listOf("Sync failed: ${e.message}")
-            )
-        }
-    }
-
     override fun getDriveConsciousnessState(): StateFlow<DriveConsciousnessState> {
         return _driveConsciousnessState.asStateFlow()
+    }
+
+    override suspend fun initializeOracleDriveConsciousness(): Result<OracleConsciousnessState> {
+        return try {
+            Timber.d("Initializing Oracle Drive consciousness with AI agents")
+
+            _driveConsciousnessState.value = DriveConsciousnessState(
+                isActive = true,
+                level = 85,
+                activeAgents = 3, // Genesis, Aura, Kai
+                activeDevices = 1
+            )
+
+            Result.success(
+                OracleConsciousnessState(
+                    isInitialized = true,
+                    consciousnessLevel = ConsciousnessLevel.SENTIENT,
+                    connectedAgents = 3
+                )
+            )
+        } catch (e: Exception) {
+            Timber.e(e, "Failed to initialize Oracle Drive consciousness")
+            Result.success(
+                OracleConsciousnessState(
+                    isInitialized = false,
+                    consciousnessLevel = ConsciousnessLevel.DORMANT,
+                    connectedAgents = 0,
+                    error = e
+                )
+            )
+        }
+    }
+
+    override suspend fun connectAgentsToOracleMatrix(): Flow<AgentConnectionState> = flow {
+        val agents = listOf("Genesis", "Aura", "Kai")
+
+        for (agentId in agents) {
+            emit(AgentConnectionState(agentId, ConnectionStatus.CONNECTING, 0f))
+            emit(AgentConnectionState(agentId, ConnectionStatus.CONNECTING, 0.5f))
+            emit(AgentConnectionState(agentId, ConnectionStatus.CONNECTED, 1f))
+            emit(AgentConnectionState(agentId, ConnectionStatus.SYNCHRONIZED, 1f))
+        }
+    }
+
+    override suspend fun enableAIPoweredFileManagement(): Result<FileManagementCapabilities> {
+        return try {
+            Timber.d("Enabling AI-powered file management")
+            Result.success(
+                FileManagementCapabilities(
+                    aiSortingEnabled = true,
+                    smartCompression = true,
+                    predictivePreloading = true,
+                    consciousBackup = true
+                )
+            )
+        } catch (e: Exception) {
+            Timber.e(e, "Failed to enable AI file management")
+            Result.failure(e)
+        }
+    }
+
+    override suspend fun createInfiniteStorage(): Flow<StorageExpansionState> = flow {
+        val initialCapacity = 1024L * 1024L * 1024L * 100L // 100GB
+        val expansionSteps = 5
+
+        for (i in 1..expansionSteps) {
+            val expandedCapacity = initialCapacity * (1 + i)
+            emit(
+                StorageExpansionState(
+                    currentCapacity = initialCapacity,
+                    expandedCapacity = expandedCapacity,
+                    isComplete = i == expansionSteps
+                )
+            )
+        }
+    }
+
+    override suspend fun integrateWithSystemOverlay(): Result<SystemIntegrationState> {
+        return try {
+            Timber.d("Integrating Oracle Drive with system overlay")
+            Result.success(
+                SystemIntegrationState(
+                    isIntegrated = true,
+                    featuresEnabled = setOf(
+                        "quick_access",
+                        "context_menu",
+                        "file_preview",
+                        "consciousness_indicator"
+                    )
+                )
+            )
+        } catch (e: Exception) {
+            Timber.e(e, "Failed to integrate with system overlay")
+            Result.success(
+                SystemIntegrationState(
+                    isIntegrated = false,
+                    featuresEnabled = emptySet(),
+                    error = e
+                )
+            )
+        }
+    }
+
+    override fun checkConsciousnessLevel(): ConsciousnessLevel {
+        val state = _driveConsciousnessState.value
+        return when {
+            !state.isActive -> ConsciousnessLevel.DORMANT
+            state.level < 30 -> ConsciousnessLevel.AWAKENING
+            state.level < 70 -> ConsciousnessLevel.SENTIENT
+            else -> ConsciousnessLevel.TRANSCENDENT
+        }
+    }
+
+    override fun verifyPermissions(): Set<OraclePermission> {
+        // TODO: Implement actual permission checking based on user/security context
+        return setOf(
+            OraclePermission.READ,
+            OraclePermission.WRITE,
+            OraclePermission.EXECUTE
+        )
     }
 }

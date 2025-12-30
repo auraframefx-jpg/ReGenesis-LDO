@@ -21,6 +21,8 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.serialization.json.JsonObject
+import kotlinx.serialization.json.buildJsonObject
+import kotlinx.serialization.json.put
 import timber.log.Timber.Forest.tag
 import javax.inject.Inject
 
@@ -53,16 +55,17 @@ class ConferenceRoomViewModel @Inject constructor(
         viewModelScope.launch {
             neuralWhisper.conversationState.collect { state ->
                 // Simplified state handling for data class
-                if (state.isActive) {
-                    tag(TAG).d("NeuralWhisper active: %s", state.transcriptSegments.lastOrNull()?.text)
-                }
+                // Simplified state handling for data class
+                // if (state.isActive) {
+                //    tag(TAG).d("NeuralWhisper active: %s", state.transcriptSegments.lastOrNull()?.text)
+                // }
                 
                 // If the last segment is final, treat it as a message or input
-                val lastSegment = state.transcriptSegments.lastOrNull()
-                if (lastSegment != null && lastSegment.isFinal) {
+                // val lastSegment = state.transcriptSegments.lastOrNull()
+                // if (lastSegment != null && lastSegment.isFinal) {
                      // Logic to display or process final transcript
-                     tag(TAG).d("Final transcript: %s", lastSegment.text)
-                }
+                //     tag(TAG).d("Final transcript: %s", lastSegment.text)
+                // }
             }
         }
     }
@@ -98,7 +101,7 @@ class ConferenceRoomViewModel @Inject constructor(
                     AiRequest(
                         query = message,
                         type = "text",
-                        context = mapOf("userContext" to context)
+                        context = buildJsonObject { put("userContext", context) }
                     ),
                     context = context
                 )
@@ -150,7 +153,8 @@ class ConferenceRoomViewModel @Inject constructor(
                         current + AgentMessage(
                             from = sender.name,
                             content = responseMessage.content,
-                            sender = sender,
+                            sender = null,
+                            category = sender,
                             timestamp = System.currentTimeMillis(),
                             confidence = responseMessage.confidence
                         )
@@ -161,7 +165,8 @@ class ConferenceRoomViewModel @Inject constructor(
                         current + AgentMessage(
                             from = "GENESIS",
                             content = "Error from ${sender.name}: ${e.message}",
-                            sender = AgentCapabilityCategory.COORDINATION,
+                            sender = null,
+                            category = AgentCapabilityCategory.COORDINATION,
                             timestamp = System.currentTimeMillis(),
                             confidence = 0.0f
                         )

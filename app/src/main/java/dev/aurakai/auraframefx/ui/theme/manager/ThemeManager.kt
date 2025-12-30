@@ -1,10 +1,10 @@
 package dev.aurakai.auraframefx.ui.theme.manager
 
 import dev.aurakai.auraframefx.oracledrive.genesis.ai.services.AuraAIService
-import dev.aurakai.auraframefx.ui.theme.models.AuraTheme
-import dev.aurakai.auraframefx.ui.theme.models.CyberpunkTheme
-import dev.aurakai.auraframefx.ui.theme.models.ForestTheme
-import dev.aurakai.auraframefx.ui.theme.models.SolarFlareTheme
+import dev.aurakai.auraframefx.ui.theme.model.AuraTheme
+import dev.aurakai.auraframefx.ui.theme.model.CyberpunkTheme
+import dev.aurakai.auraframefx.ui.theme.model.ForestTheme
+import dev.aurakai.auraframefx.ui.theme.model.SolarFlareTheme
 import dev.aurakai.auraframefx.utils.AuraFxLogger
 import dev.aurakai.auraframefx.utils.i
 import javax.inject.Inject

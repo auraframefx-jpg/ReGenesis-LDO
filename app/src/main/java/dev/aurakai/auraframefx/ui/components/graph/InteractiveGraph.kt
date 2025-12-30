@@ -32,15 +32,12 @@ import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import dev.aurakai.auraframefx.ui.components.graph.Connection
-import dev.aurakai.auraframefx.ui.components.graph.ConnectionType
-import dev.aurakai.auraframefx.ui.components.graph.GraphNode
 import kotlin.math.PI
 import kotlin.math.cos
 import kotlin.math.pow
 import kotlin.math.sin
 import kotlin.math.sqrt
-import dev.aurakai.auraframefx.ui.components.graph.Offset
+import dev.aurakai.auraframefx.ui.components.graph.Offset as GraphOffset
 
 /**
  * Displays an interactive, zoomable, and pannable graph visualization with selectable nodes.
@@ -65,7 +62,7 @@ fun InteractiveGraph(
     contentPadding: PaddingValues = PaddingValues(16.dp),
 ) {
     var scale by remember { mutableStateOf(1f) }
-    var translation by remember { mutableStateOf(Offset.Zero) }
+    var translation by remember { mutableStateOf(androidx.compose.ui.geometry.Offset.Zero) }
     val infiniteTransition = rememberInfiniteTransition()
     val pulse by infiniteTransition.animateFloat(
         initialValue = 0.95f,
@@ -91,9 +88,6 @@ fun InteractiveGraph(
         val offsetX = (canvasWidth - contentWidth) / 2 + translation.x
         val offsetY = (canvasHeight - contentHeight) / 2 + translation.y
 
-        // Convert GraphOffset to Offset for rendering
-        fun GraphOffset.toCompose() = Offset(x.toFloat(), y.toFloat())
-
         val gridColor = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.1f)
         val nodeTextColor = Color.White // Or MaterialTheme.colorScheme.onPrimary if appropriate
 
@@ -104,7 +98,7 @@ fun InteractiveGraph(
                     detectTransformGestures(
                         onGesture = { _, pan, zoom, _ ->
                             scale = (scale * zoom).coerceIn(0.5f, 3f)
-                            translation += pan / scale
+                            translation = translation + (pan / scale)
                         }
                     )
                 }
@@ -124,7 +118,7 @@ fun InteractiveGraph(
             nodes.forEach { node ->
                 val isSelected = node.id == selectedNodeId
                 val nodeScale = if (isSelected) pulse else 1f
-                val currentOffset = Offset(offsetX, offsetY) + node.position.toCompose() * scale
+                val currentOffset = androidx.compose.ui.geometry.Offset(offsetX, offsetY) + node.position.toCompose() * scale
 
                 withTransform({
                     translate(
@@ -149,7 +143,7 @@ fun InteractiveGraph(
  * @param translation The current pan offset, shifting the grid accordingly.
  * @param gridColor The color of the grid lines.
  */
-private fun DrawScope.drawGrid(scale: Float, translation: Offset, gridColor: Color) {
+private fun DrawScope.drawGrid(scale: Float, translation: androidx.compose.ui.geometry.Offset, gridColor: Color) {
     val gridSize = 40f * scale // Adjust grid size with scale
     val strokeWidth = (1f / scale).coerceAtLeast(0.5f) // Ensure minimum stroke width
 
@@ -157,8 +151,8 @@ private fun DrawScope.drawGrid(scale: Float, translation: Offset, gridColor: Col
     while (x < size.width) {
         drawLine(
             color = gridColor,
-            start = Offset(x, 0f),
-            end = Offset(x, size.height),
+            start = androidx.compose.ui.geometry.Offset(x, 0f),
+            end = androidx.compose.ui.geometry.Offset(x, size.height),
             strokeWidth = strokeWidth
         )
         x += gridSize
@@ -168,8 +162,8 @@ private fun DrawScope.drawGrid(scale: Float, translation: Offset, gridColor: Col
     while (y < size.height) {
         drawLine(
             color = gridColor,
-            start = Offset(0f, y),
-            end = Offset(size.width, y),
+            start = androidx.compose.ui.geometry.Offset(0f, y),
+            end = androidx.compose.ui.geometry.Offset(size.width, y),
             strokeWidth = strokeWidth
         )
         y += gridSize
@@ -335,8 +329,8 @@ private fun DrawScope.drawConnection(
 }
 
 private fun DrawScope.drawArrowHead(
-    tip: Offset,
-    direction: Offset,
+    tip: androidx.compose.ui.geometry.Offset,
+    direction: androidx.compose.ui.geometry.Offset,
     size: Float,
     angle: Float,
     color: Color,
@@ -359,36 +353,7 @@ fun Dp.toPx(drawScope: DrawScope): Float = with(drawScope) { this@toPx.toPx() }
 // Helper extension for GraphOffset to Compose Offset - already defined in Composable
 // fun Offset.toCompose(): Offset = Offset(this.x.toFloat(), this.y.toFloat())
 
-/**
- * Returns the sum of this [Offset] and another [Offset] as a new [Offset].
- *
- * The resulting [Offset] has its x and y components added element-wise.
- *
- * @return The element-wise sum of the two offsets.
- */
-private operator fun Offset.plus(other: Offset): Offset {
-    return Offset(x + other.x, y + other.y)
-}
 
-/**
- * Returns the vector difference between this [Offset] and another [Offset].
- *
- * @return A new [Offset] representing the component-wise subtraction.
- */
-private operator fun Offset.minus(other: Offset): Offset {
-    return Offset(x - other.x, y - other.y)
-}
-
-/**
- * Divides the components of this [Offset] by the given scalar value.
- *
- * @param scalar The value to divide both x and y components by.
- * @return A new [Offset] with each component divided by [scalar].
- */
-private operator fun Offset.div(scalar: Float): Offset {
-    if (scalar == 0f) return Offset.Zero // Avoid division by zero
-    return Offset(x / scalar, y / scalar)
-}
 
 /**
  * Rotates this offset by the given angle in radians.
@@ -398,18 +363,8 @@ private operator fun Offset.div(scalar: Float): Offset {
  * @param angle The rotation angle in radians.
  * @return The rotated offset.
  */
-fun Offset.rotate(angle: Float): Offset {
+fun androidx.compose.ui.geometry.Offset.rotate(angle: Float): androidx.compose.ui.geometry.Offset {
     val cosAngle = cos(angle)
     val sinAngle = sin(angle)
-    return Offset(x * cosAngle - y * sinAngle, x * sinAngle + y * cosAngle)
-}
-
-/**
- * Multiplies the components of this [Offset] by the given scalar value.
- *
- * @param scalar The value to multiply both x and y components by.
- * @return A new [Offset] with each component multiplied by [scalar].
- */
-private operator fun Offset.times(scalar: Float): Offset {
-    return Offset(x * scalar, y * scalar)
+    return androidx.compose.ui.geometry.Offset(x * cosAngle - y * sinAngle, x * sinAngle + y * cosAngle)
 }

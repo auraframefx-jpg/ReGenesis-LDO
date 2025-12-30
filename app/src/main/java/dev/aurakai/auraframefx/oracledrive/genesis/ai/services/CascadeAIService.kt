@@ -152,7 +152,7 @@ class CascadeAIService @Inject constructor(
 
         // Add specialized agents based on content
         if (containsTechnicalContent(message)) {
-            selectedAgents.add(AgentType.DataveinConstructor)
+            selectedAgents.add(AgentType.DATAVEIN_CONSTRUCTOR)
         }
 
         return selectedAgents.toList().sorted()
@@ -471,7 +471,7 @@ class CascadeAIService @Inject constructor(
          """.trimIndent()
 
         return CascadeResponse(
-            agent = AgentType.GenKitMaster.name,
+            agent = AgentType.GEN_KIT_MASTER.name,
             response = response,
             confidence = generationPotential,
             timestamp = getCurrentTimestamp()
@@ -509,7 +509,7 @@ class CascadeAIService @Inject constructor(
         """.trimIndent()
 
         return CascadeResponse(
-            agent = AgentType.DataveinConstructor.name,
+            agent = AgentType.DATAVEIN_CONSTRUCTOR.name,
             response = response,
             confidence = 0.93f,
             timestamp = getCurrentTimestamp()

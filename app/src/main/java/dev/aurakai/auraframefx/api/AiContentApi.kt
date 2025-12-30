@@ -1,7 +1,7 @@
 package dev.aurakai.auraframefx.api
 
-import dev.aurakai.auraframefx.ai.models.GenerateTextRequest
-import dev.aurakai.auraframefx.ai.models.GenerateTextResponse
+import dev.aurakai.auraframefx.ai.model.GenerateTextRequest
+import dev.aurakai.auraframefx.ai.model.GenerateTextResponse
 
 interface AiContentApi {
     /**

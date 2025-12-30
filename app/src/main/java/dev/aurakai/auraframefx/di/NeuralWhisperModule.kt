@@ -24,8 +24,7 @@ object NeuralWhisperModule {
     @Singleton
     fun provideNeuralWhisper(
         @ApplicationContext context: Context,
-        vertexAIClient: VertexAIClient
     ): NeuralWhisper {
-        return NeuralWhisper(context, vertexAIClient)
+        return NeuralWhisper(context)
     }
 }

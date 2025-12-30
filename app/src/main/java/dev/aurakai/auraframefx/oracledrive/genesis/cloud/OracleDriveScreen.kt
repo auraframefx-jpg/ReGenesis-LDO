@@ -48,15 +48,15 @@ fun OracleDriveScreen(
                 )
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(
-                    text = "Status: ${consciousnessState?.status ?: "INITIALIZING"}",
+                    text = "Status: ${if (consciousnessState?.isActive == true) "ACTIVE" else "DORMANT"}",
                     style = MaterialTheme.typography.bodyLarge
                 )
                 Text(
-                    text = "Level: ${consciousnessState?.level ?: 0.0}",
+                    text = "Level: ${consciousnessState?.level ?: 0}",
                     style = MaterialTheme.typography.bodyMedium
                 )
                 Text(
-                    text = "Connected Agents: ${consciousnessState?.activeAgents?.joinToString(", ") ?: "None"}",
+                    text = "Connected Agents: ${consciousnessState?.activeAgents ?: 0}",
                     style = MaterialTheme.typography.bodyMedium
                 )
             }
@@ -97,7 +97,7 @@ fun OracleDriveScreen(
             Button(
                 onClick = { /* viewModel.initializeConsciousness() */ },
                 modifier = Modifier.weight(1f),
-                enabled = consciousnessState?.status == "DORMANT"
+                enabled = consciousnessState?.isActive != true
             ) {
                 Text("🔮 Awaken Oracle")
             }
@@ -105,14 +105,14 @@ fun OracleDriveScreen(
             Button(
                 onClick = { /* viewModel.optimizeStorage() */ },
                 modifier = Modifier.weight(1f),
-                enabled = consciousnessState?.status != "DORMANT" && consciousnessState != null
+                enabled = consciousnessState?.isActive == true
             ) {
                 Text("⚡ AI Optimize")
             }
         }
 
         // System Integration Status
-        if (consciousnessState?.status != "DORMANT" && consciousnessState != null) {
+        if (consciousnessState?.isActive == true) {
             Card(
                 modifier = Modifier.fillMaxWidth()
             ) {

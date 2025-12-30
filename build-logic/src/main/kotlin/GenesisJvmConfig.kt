@@ -1,6 +1,9 @@
 import org.gradle.api.Project
+import org.gradle.api.JavaVersion
+import org.gradle.api.tasks.compile.JavaCompile
 import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.withType
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.dsl.KotlinAndroidProjectExtension
 import org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile
 
@@ -32,10 +35,11 @@ object GenesisJvmConfig {
     /**
      * Configure the Kotlin JVM toolchain and Kotlin compilation options for the given Gradle project.
      *
-     * Sets the Kotlin Android JVM toolchain to the centralized JVM_VERSION and applies compiler
-     * opt-in flags for `kotlin.RequiresOptIn`, `kotlinx.coroutines.ExperimentalCoroutinesApi`, and
-     * `androidx.compose.material3.ExperimentalMaterial3Api`. The JVM toolchain selection also determines
-     * the effective `jvmTarget`, so manually setting `jvmTarget` is unnecessary.
+     * Explicitly sets:
+     * - Kotlin `compilerOptions.jvmTarget` to JVM_VERSION (25)
+     * - Java compilation tasks to target JVM_VERSION (25)
+     * - Compiler opt-in flags for experimental APIs
+     * - JDK release target via `-Xjdk-release`
      *
      * @param project The Gradle project to configure.
      */
@@ -45,14 +49,22 @@ object GenesisJvmConfig {
             // MUST match the target used in GenesisApplicationPlugin and GenesisLibraryHiltPlugin (JVM 25)
             tasks.withType<KotlinJvmCompile>().configureEach {
                 compilerOptions {
+                    jvmTarget.set(JvmTarget.JVM_25)
                     freeCompilerArgs.addAll(
                         "-Xcontext-parameters",
                         "-Xannotation-default-target=param-property",
+                        "-Xjdk-release=25",
                         "-opt-in=kotlin.RequiresOptIn",
                         "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
                         "-opt-in=androidx.compose.material3.ExperimentalMaterial3Api"
                     )
                 }
+            }
+
+            // Explicitly configure Java compilation tasks to target JVM 25
+            tasks.withType<JavaCompile>().configureEach {
+                sourceCompatibility = JavaVersion.VERSION_25.toString()
+                targetCompatibility = JavaVersion.VERSION_25.toString()
             }
 
             // Configure toolchain - use afterEvaluate so extensions are ready

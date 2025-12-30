@@ -1,12 +1,12 @@
-package com.example.app.ipc
+package dev.aurakai.auraframefx.oracledrive.ipc
 
-// Explicitly import the AIDL interface
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.content.ServiceConnection
 import android.os.IBinder
 import android.os.RemoteException
+import dev.aurakai.auraframefx.ipc.IAuraDriveService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

@@ -1,4 +1,4 @@
-package dev.aurakai.auraframefx.ui.debug.model
+package dev.aurakai.auraframefx.ui.components.graph
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Person
@@ -74,6 +74,16 @@ data class Offset(val x: Float, val y: Float) {
     operator fun times(factor: Float): Offset = Offset(x * factor, y * factor)
 
     /**
+     * Returns a new Offset divided by the given divisor.
+     *
+     * Divides both the x and y coordinates by the specified scalar value.
+     *
+     * @param divisor The scalar value to divide the coordinates by.
+     * @return A new Offset with divided coordinates.
+     */
+    operator fun div(divisor: Float): Offset = Offset(x / divisor, y / divisor)
+
+    /**
      * Calculates the Euclidean distance between this offset and another offset.
      *
      * @param other The offset to which the distance is measured.
@@ -84,6 +94,8 @@ data class Offset(val x: Float, val y: Float) {
         val dy = y - other.y
         return sqrt(dx * dx + dy * dy)
     }
+
+    fun toCompose(): androidx.compose.ui.geometry.Offset = androidx.compose.ui.geometry.Offset(x, y)
 }
 
 @Immutable
