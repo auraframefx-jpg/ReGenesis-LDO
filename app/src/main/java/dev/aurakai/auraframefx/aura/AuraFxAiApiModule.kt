@@ -7,6 +7,7 @@ import dagger.hilt.components.SingletonComponent
 import dev.aurakai.auraframefx.api.client.apis.AIContentApi
 import kotlinx.serialization.json.Json
 import okhttp3.OkHttpClient
+import javax.inject.Named
 import javax.inject.Singleton
 
 /**
@@ -41,7 +42,7 @@ object AuraFxAiApiModule {
      */
     @Provides
     @Singleton
-    fun provideAiContentApi(okHttpClient: OkHttpClient): AIContentApi {
+    fun provideAiContentApi(@Named("BasicOkHttpClient") okHttpClient: OkHttpClient): AIContentApi {
 
         val baseUrl = "https://api.auraframefx.com/v1"
 

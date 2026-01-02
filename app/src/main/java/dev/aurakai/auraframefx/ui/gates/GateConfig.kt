@@ -7,6 +7,22 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.sp
 
 /**
+ * Title placement options for gate cards
+ */
+enum class TitlePlacement {
+    NONE,           // No title shown
+    TOP_CENTER,     // Centered at top
+    BOTTOM_CENTER,  // Centered at bottom (in description box)
+    LEFT_VERTICAL,  // Vertical text on left side
+    RIGHT_VERTICAL, // Vertical text on right side
+    TOP_LEFT,       // Corner placement
+    TOP_RIGHT,      // Corner placement
+    BOTTOM_LEFT,    // Corner placement
+    BOTTOM_RIGHT,   // Corner placement
+    CUSTOM          // Use custom positioning
+}
+
+/**
  * Configuration for a module gate with unique styling and pixel art
  */
 data class GateConfig(
@@ -22,7 +38,9 @@ data class GateConfig(
     val description: String,
     val backgroundColor: Color = Color.Black,
     val route: String,
-    val comingSoon: Boolean = false  // Flag for gates with incomplete features
+    val comingSoon: Boolean = false,  // Flag for gates with incomplete features
+    val titlePlacement: TitlePlacement = TitlePlacement.BOTTOM_CENTER,  // Where to place title
+    val accentColor: Color? = null  // Unique accent color for this gate (orange, purple, pink, etc.)
 )
 
 /**
