@@ -235,10 +235,11 @@ fun AppNavGraph(navController: NavHostController) {
         }
 
         composable(route = NavDestination.LiveSupport.route) {
-            val viewModel: SupportChatViewModel = hiltViewModel()
-            with(viewModel) {
-                LiveSupportChatScreen(onNavigateBack = { navController.popBackStack() })
-            }
+            val viewModel = hiltViewModel<SupportChatViewModel>()
+            LiveSupportChatScreen(
+                viewModel = viewModel,
+                onNavigateBack = { navController.popBackStack() }
+            )
         }
 
         composable(route = NavDestination.Documentation.route) {

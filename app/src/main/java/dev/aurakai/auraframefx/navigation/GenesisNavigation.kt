@@ -326,11 +326,10 @@ fun GenesisNavigationHost(
             }
             composable("live_support_chat") {
                 val viewModel = hiltViewModel<SupportChatViewModel>()
-                with(viewModel) {
-                    LiveSupportChatScreen(
-                        onNavigateBack = { navController.popBackStack() }
-                    )
-                }
+                LiveSupportChatScreen(
+                    viewModel = viewModel,
+                    onNavigateBack = { navController.popBackStack() }
+                )
             }
             composable("direct_chat") {
                 val viewModel = hiltViewModel<AgentViewModel>()

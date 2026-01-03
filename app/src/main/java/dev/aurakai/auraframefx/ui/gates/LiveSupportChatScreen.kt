@@ -57,9 +57,10 @@ import androidx.compose.ui.unit.sp
  * Live Support Chat Screen
  * Real-time assistance from support agents
  */
-context(viewModel: SupportChatViewModel) @ExperimentalMaterial3Api
+@ExperimentalMaterial3Api
 @Composable
 fun LiveSupportChatScreen(
+    viewModel: SupportChatViewModel,
     onNavigateBack: () -> Unit = {}
 ) {
     val persistedMessages by viewModel.messages.collectAsState()
