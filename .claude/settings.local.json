@@ -30,7 +30,10 @@
       "Bash(git fetch:*)",
       "Bash(git config:*)",
       "Bash(.gradlew.bat :app:assembleDebug:*)",
-      "Bash(git log:*)"
+      "Bash(git log:*)",
+      "Bash(Select-String -Pattern \"error:|FAILED|BUILD SUCCESSFUL\" -Context 2,2)",
+      "Bash(./gradlew.bat:*)",
+      "Bash(findstr:*)"
     ]
   }
 }

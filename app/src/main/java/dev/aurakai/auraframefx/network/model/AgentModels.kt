@@ -1,7 +1,6 @@
 @file:JvmName("NetworkAgentModels")
 package dev.aurakai.auraframefx.network.model
 
-import kotlinx.serialization.Contextual
 import kotlinx.serialization.Serializable
 
 /**

@@ -9,7 +9,6 @@ import dev.aurakai.auraframefx.security.SecurityContext
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.*
 import kotlinx.serialization.Serializable
-import kotlinx.serialization.Contextual
 import javax.inject.Inject
 
 /**
