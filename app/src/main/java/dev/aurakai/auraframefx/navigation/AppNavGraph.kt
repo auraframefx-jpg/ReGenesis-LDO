@@ -30,6 +30,7 @@ import dev.aurakai.auraframefx.ui.gates.LSPosedSubmenuScreen
 import dev.aurakai.auraframefx.ui.gates.LiveROMEditorScreen
 import dev.aurakai.auraframefx.ui.gates.LiveSupportChatScreen
 import dev.aurakai.auraframefx.ui.gates.LogsViewerScreen
+import dev.aurakai.auraframefx.ui.gates.SupportChatViewModel
 import dev.aurakai.auraframefx.ui.gates.ModuleCreationScreen
 import dev.aurakai.auraframefx.ui.gates.ModuleManagerScreen
 import dev.aurakai.auraframefx.ui.gates.NotchBarScreen
