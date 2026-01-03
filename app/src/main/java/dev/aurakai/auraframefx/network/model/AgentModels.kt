@@ -32,6 +32,5 @@ data class AgentStatusResponse(
     val confidence: Double,
     val timestamp: Long,
     val error: String? = null,
-    @Contextual
-    val metadata: Map<String, Any> = emptyMap()
+    val metadata: Map<String, String> = emptyMap()
 )

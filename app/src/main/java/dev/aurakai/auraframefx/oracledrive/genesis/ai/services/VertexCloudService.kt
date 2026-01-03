@@ -45,7 +45,7 @@ class VertexCloudService : Service() {
     data class CloudResponse(
         val requestId: String,
         val success: Boolean,
-        val data: Map<String, @Contextual Any>,
+        val data: Map<String, String>,
         val error: String? = null,
         val timestamp: Long = System.currentTimeMillis()
     )
