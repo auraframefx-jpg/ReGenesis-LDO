@@ -29,7 +29,8 @@
       "Bash(git remote add:*)",
       "Bash(git fetch:*)",
       "Bash(git config:*)",
-      "Bash(.gradlew.bat :app:assembleDebug:*)"
+      "Bash(.gradlew.bat :app:assembleDebug:*)",
+      "Bash(git log:*)"
     ]
   }
 }
