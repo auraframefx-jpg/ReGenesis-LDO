@@ -32,6 +32,7 @@ object SupportModule {
 
     @Provides
     @Singleton
+    @SupportNetwork
     fun provideOkHttpClient(@ApplicationContext ctx: Context): OkHttpClient {
         // Check manifest meta-data first (covers google-services.json / manifest placeholders)
         val manifestKey = try {
@@ -92,7 +93,7 @@ object SupportModule {
     @Provides
     @Singleton
     @SupportRetrofit
-    fun provideRetrofit(client: OkHttpClient, gson: Gson): Retrofit {
+    fun provideRetrofit(@SupportNetwork client: OkHttpClient, gson: Gson): Retrofit {
         val base = System.getenv("VERTEX_ENDPOINT") ?: System.getenv("LOCAL_EMULATOR_ENDPOINT") ?: "http://10.0.2.2:5000"
         return Retrofit.Builder()
             .baseUrl(base)

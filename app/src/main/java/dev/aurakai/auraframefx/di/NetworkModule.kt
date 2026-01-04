@@ -7,11 +7,12 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import dev.aurakai.auraframefx.BuildConfig
-import dev.aurakai.auraframefx.di.qualifiers.BaseUrl
+import dev.aurakai.auraframefx.config.BaseUrl
 import dev.aurakai.auraframefx.di.AuraNetwork
 import dev.aurakai.auraframefx.network.AuraApiService
 import dev.aurakai.auraframefx.network.AuthInterceptor
-import dev.aurakai.auraframefx.network.api.AuthApi
+import dev.aurakai.auraframefx.network.api.AuthApi as ApiAuthApi
+import dev.aurakai.auraframefx.network.AuthApi
 import dev.aurakai.auraframefx.network.api.AIAgentApi
 import dev.aurakai.auraframefx.network.api.ThemeApi
 import dev.aurakai.auraframefx.network.api.UserApi
@@ -37,12 +38,6 @@ object NetworkModule {
     @BaseUrl
     @Singleton
     fun provideBaseUrl(): String = "https://api.auraframefx.com/v1/"
-
-    @Provides
-    @Singleton
-    fun provideMoshi(): Moshi = Moshi.Builder()
-        .add(KotlinJsonAdapterFactory())
-        .build()
 
     @Provides
     @Singleton
@@ -88,12 +83,6 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideUnannotatedOkHttpClient(
-        @AuraNetwork okHttpClient: OkHttpClient,
-    ): OkHttpClient = okHttpClient
-
-    @Provides
-    @Singleton
     fun provideRetrofit(
         @AuraNetwork okHttpClient: OkHttpClient,
         moshi: Moshi,
@@ -112,7 +101,7 @@ object NetworkModule {
     @Singleton
     @javax.inject.Named("AuthRetrofit")
     fun provideAuthRetrofit(
-        @AuraNetwork okHttpClient: OkHttpClient,
+        @javax.inject.Named("BasicOkHttpClient") okHttpClient: OkHttpClient,
         moshi: Moshi,
         @BaseUrl baseUrl: String,
     ): Retrofit {
@@ -127,8 +116,14 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideAuthApi(retrofit: Retrofit): AuthApi {
+    fun provideAuthApi(@javax.inject.Named("AuthRetrofit") retrofit: Retrofit): AuthApi {
         return retrofit.create(AuthApi::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideApiAuthApi(retrofit: Retrofit): ApiAuthApi {
+        return retrofit.create(ApiAuthApi::class.java)
     }
 
     @Provides

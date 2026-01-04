@@ -131,7 +131,7 @@ class VertexCloudService : Service() {
                         data = mapOf(
                             "status" to "healthy",
                             "service" to "vertex_ai_cloud",
-                            "timestamp" to System.currentTimeMillis()
+                            "timestamp" to System.currentTimeMillis().toString()
                         )
                     )
                 }
@@ -147,7 +147,7 @@ class VertexCloudService : Service() {
                     CloudResponse(
                         requestId = request.requestId,
                         success = true,
-                        data = mapOf<String, Any>(
+                        data = mapOf(
                             "generated_text" to (result ?: ""),
                             "model" to "vertex_ai"
                         )
@@ -167,7 +167,7 @@ class VertexCloudService : Service() {
                         success = true,
                         data = mapOf(
                             "analysis_result" to analysis,
-                            "confidence" to 0.9
+                            "confidence" to "0.9"
                         )
                     )
                 }
@@ -229,45 +229,18 @@ class VertexCloudService : Service() {
         }
     }
 
-    /**
-     * Public API for cloud requests
-     */
-    suspend fun sendCloudRequest(request: CloudRequest): CloudResponse {
-        return if (isConnected) {
-            processCloudRequest(request)
-        } else {
-            CloudResponse(
-                requestId = request.requestId,
-                success = false,
-                data = emptyMap(),
-                error = "Cloud service not connected"
-            )
-        }
-    }
 
-    /**
-     * Gets current cloud service status
-     */
-    fun getServiceStatus(): Map<String, Any> {
-        return mapOf(
-            "connected" to isConnected,
-            "service_name" to "VertexCloudService",
-            "uptime" to System.currentTimeMillis(),
-            "health_status" to if (isConnected) "healthy" else "disconnected"
-        )
-    }
-
-    override fun onBind(_intent: Intent?): IBinder? {
+    override fun onBind(intent: Intent?): IBinder? {
         logger.debug(tag, "onBind called, returning null")
         // This service does not support binding by default
         return null
     }
 
-    override fun onStartCommand(_intent: Intent?, _flags: Int, _startId: Int): Int {
+    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         logger.info(tag, "VertexCloudService started - Genesis AI Cloud Bridge active")
 
         // Process any intent data for immediate cloud requests
-        _intent?.let { intent ->
+        intent?.let {
             val action = intent.action
             when (action) {
                 "RECONNECT_CLOUD" -> {

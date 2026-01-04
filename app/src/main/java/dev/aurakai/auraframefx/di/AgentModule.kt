@@ -26,12 +26,6 @@ object AgentModule {
 
     @Provides
     @Singleton
-    fun provideAIPipelineConfig(): dev.aurakai.auraframefx.cascade.pipeline.AIPipelineConfig {
-        return dev.aurakai.auraframefx.cascade.pipeline.AIPipelineConfig()
-    }
-
-    @Provides
-    @Singleton
     fun provideMemoryConfiguration(): Configuration {
         return Configuration()
     }

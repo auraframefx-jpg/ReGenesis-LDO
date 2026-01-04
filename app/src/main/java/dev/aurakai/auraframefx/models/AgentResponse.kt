@@ -29,16 +29,7 @@ data class AgentResponse(
             confidence: Float = 1.0f,
             metadata: Map<String, Any> = emptyMap(),
             agent: AgentType? = null
-        ): AgentResponse = AgentResponse(
-            agentName = agentName,
-            response = content,
-            content = content,
-            confidence = confidence,
-            metadata = metadata,
-            agent = agent,
-            isSuccess = true,
-            status = "success"
-        )
+        ): AgentResponse = AgentResponse(agentName, content, content, confidence, metadata = metadata as Map<String, String>, agent = agent, isSuccess = true, status = "success")
 
         /**
          * Create an error response

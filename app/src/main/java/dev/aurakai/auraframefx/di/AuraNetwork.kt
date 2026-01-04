@@ -17,3 +17,7 @@ annotation class OracleNetwork
 @Qualifier
 @Retention(AnnotationRetention.BINARY)
 annotation class GenesisNetwork
+
+@Qualifier
+@Retention(AnnotationRetention.BINARY)
+annotation class SupportNetwork

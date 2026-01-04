@@ -13,11 +13,12 @@ import okhttp3.WebSocketListener
 import okio.ByteString
 import timber.log.Timber
 import javax.inject.Inject
+import javax.inject.Named
 import javax.inject.Singleton
 
 @Singleton
 class CanvasWebSocketService @Inject constructor(
-    private val okHttpClient: OkHttpClient,
+    @Named("BasicOkHttpClient") private val okHttpClient: OkHttpClient,
     private val gson: Gson,
 ) {
     // Removed TAG property

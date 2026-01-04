@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
+import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 import javax.inject.Singleton
 import kotlinx.coroutines.flow.Flow
@@ -13,7 +14,7 @@ private val Context.dataStore by preferencesDataStore(name = "user_preferences")
 
 @Singleton
 class UserPreferences @Inject constructor(
-    private val context: Context
+    @ApplicationContext private val context: Context
 ) {
     private val THEME_KEY = stringPreferencesKey("theme")
     private val LANGUAGE_KEY = stringPreferencesKey("language")

@@ -51,31 +51,6 @@ object OracleDriveModule {
 
     @Provides
     @Singleton
-    fun provideOkHttpClient(
-        securityContext: SecurityContext,
-        cryptoManager: CryptographyManager,
-    ): OkHttpClient {
-        val logging = HttpLoggingInterceptor().apply {
-            level = HttpLoggingInterceptor.Level.BASIC
-        }
-
-        return OkHttpClient.Builder()
-            .addInterceptor { chain ->
-                val request = chain.request().newBuilder()
-                    .addHeader("X-Security-Token", cryptoManager.generateSecureToken())
-                    .addHeader("X-Request-ID", java.util.UUID.randomUUID().toString())
-                    .build()
-                chain.proceed(request)
-            }
-            .addInterceptor(logging)
-            .connectTimeout(30, TimeUnit.SECONDS)
-            .readTimeout(30, TimeUnit.SECONDS)
-            .writeTimeout(30, TimeUnit.SECONDS)
-            .build()
-    }
-
-    @Provides
-    @Singleton
     fun provideGenesisCryptographyManager(
         @ApplicationContext context: Context,
     ): CryptographyManager {
@@ -94,7 +69,7 @@ object OracleDriveModule {
     @Provides
     @Singleton
     fun provideOracleDriveApi(
-        client: OkHttpClient,
+        @AuraNetwork client: OkHttpClient,
         securityContext: SecurityContext,
     ): OracleDriveApi {
         return Retrofit.Builder()

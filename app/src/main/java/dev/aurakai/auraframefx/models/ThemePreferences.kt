@@ -26,10 +26,4 @@ data class ThemePreferences(
     val primaryColor: Color = runCatching {
         Color(android.graphics.Color.parseColor(primaryColorString))
     }.getOrElse { Color(0xFFFF1744) } // Fallback to default red
-    
-    /**
-     * Back-compat getter for legacy code
-     */
-    @Deprecated("Use primaryColorString for persistence; primaryColor is derived.")
-    fun getPrimaryColor(): Color = primaryColor
 }

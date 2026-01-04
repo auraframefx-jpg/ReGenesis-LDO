@@ -29,7 +29,7 @@ class AIAgentApiImpl @Inject constructor() : AIAgentApi {
     override suspend fun health() {
         // Health check endpoint
     }
-    
+
     override suspend fun getAgentStatus(agentType: String): AgentStatusResponse {
         return AgentStatusResponse(
             agentName = agentType,
@@ -45,7 +45,7 @@ class AIAgentApiImpl @Inject constructor() : AIAgentApi {
             response = "Request processed",
             confidence = 1.0f,
             timestamp = System.currentTimeMillis(),
-            metadata = (request.metadata ?: emptyMap()).mapValues { it.value as Any }
+            metadata = (request.metadata ?: emptyMap()).mapValues { it.value as Any as String }
         )
     }
 }

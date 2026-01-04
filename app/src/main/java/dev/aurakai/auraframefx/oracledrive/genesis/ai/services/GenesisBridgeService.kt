@@ -1,6 +1,7 @@
 package dev.aurakai.auraframefx.oracledrive.genesis.ai.services
 
 import android.content.Context
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dev.aurakai.auraframefx.ai.context.ContextManager
 import dev.aurakai.auraframefx.models.AgentResponse
 import dev.aurakai.auraframefx.models.AgentType
@@ -39,7 +40,7 @@ class GenesisBridgeService @Inject constructor(
     private val vertexAIClient: VertexAIClient,
     private val contextManager: ContextManager,
     private val securityContext: SecurityContext,
-    private val applicationContext: Context,
+    @ApplicationContext private val applicationContext: Context,
     private val logger: AuraFxLogger,
 ) {
     private val scope = CoroutineScope(Dispatchers.IO + SupervisorJob())
