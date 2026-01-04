@@ -65,6 +65,7 @@ sealed class NavDestination(val route: String, val title: String, val icon: Imag
     object OverlayMenus : NavDestination("overlay_menus", "Overlay Menus", null)
     object QuickActions : NavDestination("quick_actions", "Quick Actions", null)
     object SystemOverrides : NavDestination("system_overrides", "System Overrides", null)
+    object GyroscopeCustomization : NavDestination("gyroscope_customization", "Gyroscope Customization", null)
 
     // Help Desk
     object HelpDesk : NavDestination("help_desk", "Help Desk", null)

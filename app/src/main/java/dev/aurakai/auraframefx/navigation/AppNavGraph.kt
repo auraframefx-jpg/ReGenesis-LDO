@@ -228,6 +228,12 @@ fun AppNavGraph(navController: NavHostController) {
             SystemOverridesScreen(onNavigateBack = { navController.popBackStack() })
         }
 
+        composable(route = NavDestination.GyroscopeCustomization.route) {
+            dev.aurakai.auraframefx.ui.customization.GyroscopeCustomizationScreen(
+                onNavigateBack = { navController.popBackStack() }
+            )
+        }
+
         // ==================== HELP DESK ====================
 
         composable(route = NavDestination.HelpDesk.route) {

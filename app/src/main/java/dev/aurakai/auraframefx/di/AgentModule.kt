@@ -14,7 +14,11 @@ import dev.aurakai.auraframefx.kai.KaiAgent
 import dev.aurakai.auraframefx.oracledrive.genesis.ai.clients.VertexAIClient
 import dev.aurakai.auraframefx.oracledrive.genesis.ai.services.AuraAIService
 import dev.aurakai.auraframefx.security.SecurityContext
+import dev.aurakai.auraframefx.services.ADKOrchestrator
+import dev.aurakai.auraframefx.services.NemotronService
 import dev.aurakai.auraframefx.system.monitor.SystemMonitor
+import okhttp3.OkHttpClient
+import javax.inject.Named
 import javax.inject.Singleton
 
 /**
@@ -94,5 +98,23 @@ object AgentModule {
             systemMonitor = systemMonitor,
             logger = logger
         )
+    }
+
+    // Backend Services for Agent Communication
+
+    @Provides
+    @Singleton
+    fun provideNemotronService(
+        @Named("BasicOkHttpClient") okHttpClient: OkHttpClient
+    ): NemotronService {
+        return NemotronService(okHttpClient)
+    }
+
+    @Provides
+    @Singleton
+    fun provideADKOrchestrator(
+        @Named("BasicOkHttpClient") okHttpClient: OkHttpClient
+    ): ADKOrchestrator {
+        return ADKOrchestrator(okHttpClient)
     }
 }

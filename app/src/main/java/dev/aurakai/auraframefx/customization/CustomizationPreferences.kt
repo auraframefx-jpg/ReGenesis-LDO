@@ -35,6 +35,9 @@ object CustomizationPreferences {
     private val KEY_SHOW_STATUS_BAR = booleanPreferencesKey("show_status_bar")
     private val KEY_SHOW_NOTCH_BAR = booleanPreferencesKey("show_notch_bar")
     private val KEY_SHOW_OVERLAY_MENUS = booleanPreferencesKey("show_overlay_menus")
+    private val KEY_SHOW_TOP_BAR = booleanPreferencesKey("show_top_bar")
+    private val KEY_SHOW_BOTTOM_BAR = booleanPreferencesKey("show_bottom_bar")
+    private val KEY_SHOW_AGENT_SIDEBAR = booleanPreferencesKey("show_agent_sidebar")
 
     // Agent colors (store as hex strings by agent name)
     private const val KEY_AGENT_COLOR_PREFIX = "agent_color_" // e.g. agent_color_Genesis
@@ -72,6 +75,15 @@ object CustomizationPreferences {
 
     fun showOverlayMenusFlow(context: Context): Flow<Boolean> =
         context.customizationDataStore.data.map { it[KEY_SHOW_OVERLAY_MENUS] ?: false }
+
+    fun showTopBarFlow(context: Context): Flow<Boolean> =
+        context.customizationDataStore.data.map { it[KEY_SHOW_TOP_BAR] ?: true }
+
+    fun showBottomBarFlow(context: Context): Flow<Boolean> =
+        context.customizationDataStore.data.map { it[KEY_SHOW_BOTTOM_BAR] ?: true }
+
+    fun showAgentSidebarFlow(context: Context): Flow<Boolean> =
+        context.customizationDataStore.data.map { it[KEY_SHOW_AGENT_SIDEBAR] ?: true }
 
     fun agentColorFlow(context: Context, agentName: String): Flow<String> =
         context.customizationDataStore.data.map { prefs ->
@@ -113,6 +125,24 @@ object CustomizationPreferences {
     suspend fun setAgentColor(context: Context, agentName: String, hexColor: String) {
         context.customizationDataStore.edit {
             it[stringPreferencesKey(KEY_AGENT_COLOR_PREFIX + agentName)] = hexColor
+        }
+    }
+
+    suspend fun setShowTopBar(context: Context, show: Boolean) {
+        context.customizationDataStore.edit {
+            it[KEY_SHOW_TOP_BAR] = show
+        }
+    }
+
+    suspend fun setShowBottomBar(context: Context, show: Boolean) {
+        context.customizationDataStore.edit {
+            it[KEY_SHOW_BOTTOM_BAR] = show
+        }
+    }
+
+    suspend fun setShowAgentSidebar(context: Context, show: Boolean) {
+        context.customizationDataStore.edit {
+            it[KEY_SHOW_AGENT_SIDEBAR] = show
         }
     }
 }
