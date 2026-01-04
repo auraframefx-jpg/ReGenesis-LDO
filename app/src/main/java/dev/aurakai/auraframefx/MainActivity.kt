@@ -14,15 +14,18 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.rememberNavController
 import dagger.hilt.android.AndroidEntryPoint
+import dev.aurakai.auraframefx.customization.CustomizationPreferences
 import dev.aurakai.auraframefx.navigation.AppNavGraph
 import dev.aurakai.auraframefx.ui.components.BottomNavigationBar
 import dev.aurakai.auraframefx.ui.theme.AuraFrameFXTheme
@@ -52,7 +55,8 @@ class MainActivity : ComponentActivity() {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun MainScreenContent(
-    processThemeCommand: (String) -> Unit
+    processThemeCommand: (String) -> Unit,
+    showBottomBar: Boolean = true
 ) {
     val navController = rememberNavController()
 
@@ -60,7 +64,11 @@ internal fun MainScreenContent(
     var command by remember { mutableStateOf("") }
 
     Scaffold(
-        bottomBar = { BottomNavigationBar(navController = navController) }
+        bottomBar = {
+            if (showBottomBar) {
+                BottomNavigationBar(navController = navController)
+            }
+        }
     ) { paddingValues ->
         Column(
             modifier = Modifier
@@ -99,7 +107,17 @@ internal fun MainScreenContent(
 internal fun MainScreen(
     themeViewModel: ThemeViewModel
 ) {
-    MainScreenContent(processThemeCommand = { themeViewModel.processThemeCommand(it) })
+    val context = LocalContext.current
+
+    // Collect UI chrome visibility preferences
+    val showBottomBar by CustomizationPreferences
+        .showBottomBarFlow(context)
+        .collectAsState(initial = true)
+
+    MainScreenContent(
+        processThemeCommand = { themeViewModel.processThemeCommand(it) },
+        showBottomBar = showBottomBar
+    )
 }
 
 @Preview(showBackground = true)

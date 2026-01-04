@@ -26,14 +26,19 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import dev.aurakai.auraframefx.customization.CustomizationPreferences
+import kotlinx.coroutines.launch
 
 
 /**
@@ -46,11 +51,22 @@ fun UISettingsScreen(
     modifier: Modifier = Modifier,
     onBack: () -> Unit = { navController.navigateUp() }
 ) {
-    // State for UI toggles
-    var isSidebarVisible by remember { mutableStateOf(true) }
+    val context = LocalContext.current
+    val coroutineScope = rememberCoroutineScope()
+
+    // UI Chrome preferences (persisted via DataStore)
+    val isSidebarVisible by CustomizationPreferences
+        .showAgentSidebarFlow(context)
+        .collectAsState(initial = true)
+    val isStatusBarVisible by CustomizationPreferences
+        .showTopBarFlow(context)
+        .collectAsState(initial = true)
+    val isBottomNavVisible by CustomizationPreferences
+        .showBottomBarFlow(context)
+        .collectAsState(initial = true)
+
+    // Visual effects toggles (local state for now - can be moved to preferences later)
     var isNotchbarVisible by remember { mutableStateOf(true) }
-    var isStatusBarVisible by remember { mutableStateOf(true) }
-    var isBottomNavVisible by remember { mutableStateOf(true) }
     var isGlowEffectsEnabled by remember { mutableStateOf(true) }
     var isPixelArtEnabled by remember { mutableStateOf(true) }
     var isDarkMode by remember { mutableStateOf(true) }
@@ -93,7 +109,11 @@ fun UISettingsScreen(
                     title = "Sidebar",
                     subtitle = "Show/hide the main sidebar",
                     isChecked = isSidebarVisible,
-                    onCheckedChange = { isSidebarVisible = it }
+                    onCheckedChange = {
+                        coroutineScope.launch {
+                            CustomizationPreferences.setShowAgentSidebar(context, it)
+                        }
+                    }
                 )
 
                 SettingsToggleItem(
@@ -107,14 +127,22 @@ fun UISettingsScreen(
                     title = "Status Bar",
                     subtitle = "Show/hide the system status bar",
                     isChecked = isStatusBarVisible,
-                    onCheckedChange = { isStatusBarVisible = it }
+                    onCheckedChange = {
+                        coroutineScope.launch {
+                            CustomizationPreferences.setShowTopBar(context, it)
+                        }
+                    }
                 )
 
                 SettingsToggleItem(
                     title = "Bottom Navigation",
                     subtitle = "Show/hide the bottom navigation bar",
                     isChecked = isBottomNavVisible,
-                    onCheckedChange = { isBottomNavVisible = it }
+                    onCheckedChange = {
+                        coroutineScope.launch {
+                            CustomizationPreferences.setShowBottomBar(context, it)
+                        }
+                    }
                 )
             }
 
@@ -148,14 +176,18 @@ fun UISettingsScreen(
             // Reset Button
             Button(
                 onClick = {
-                    // Reset all toggles to default
-                    isSidebarVisible = true
-                    isNotchbarVisible = true
-                    isStatusBarVisible = true
-                    isBottomNavVisible = true
-                    isGlowEffectsEnabled = true
-                    isPixelArtEnabled = true
-                    isDarkMode = true
+                    coroutineScope.launch {
+                        // Reset persisted UI chrome preferences
+                        CustomizationPreferences.setShowAgentSidebar(context, true)
+                        CustomizationPreferences.setShowTopBar(context, true)
+                        CustomizationPreferences.setShowBottomBar(context, true)
+
+                        // Reset local visual effects toggles
+                        isNotchbarVisible = true
+                        isGlowEffectsEnabled = true
+                        isPixelArtEnabled = true
+                        isDarkMode = true
+                    }
                 },
                 modifier = Modifier
                     .fillMaxWidth()
