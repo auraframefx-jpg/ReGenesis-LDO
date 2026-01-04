@@ -33,7 +33,10 @@
       "Bash(git log:*)",
       "Bash(Select-String -Pattern \"error:|FAILED|BUILD SUCCESSFUL\" -Context 2,2)",
       "Bash(./gradlew.bat:*)",
-      "Bash(findstr:*)"
+      "Bash(findstr:*)",
+      "Bash(for route in agent_hub auras_lab chromacore_colors code_assist collab_canvas help_desk oracle_drive rom_tools root_tools_toggles sentinels_fortress sphere_grid system_journal terminal theme_engine uiux_design_studio xposed_panel)",
+      "Bash(do echo -n \"$route: \")",
+      "Bash(done)"
     ]
   }
 }

@@ -137,6 +137,7 @@ object GateConfigs {
     // =================================
 
     // Sentinel's Fortress - Security Hub (includes Firewall features)
+    // NOTE: Currently no dedicated submenu - needs to be created
     val sentinelsFortress = GateConfig(
         moduleId = "sentinels-fortress",
         title = "Sentinel's Fortress",
@@ -147,7 +148,8 @@ object GateConfigs {
         pixelArtUrl = "sentinelfinalgate",
         description = "Kai's security command center with firewall, threat monitoring, and all security protocols.",
         backgroundColor = Color.Black,
-        route = "sentinels_fortress"
+        route = "gates",  // TEMP: Route back to gates until SentinelsFortressSubmenuScreen is created
+        comingSoon = true
     )
 
     // Region: Aura (UI/UX & Creativity)
@@ -254,7 +256,7 @@ object GateConfigs {
         pixelArtUrl = "xposed",
         description = "Quick access panel for LSPosed, Xposed, and YukiHookAPI. Enable/disable modules, view hooks, and restart framework instantly.",
         backgroundColor = Color.Black,
-        route = "xposed_panel"
+        route = "lsposed_gate"  // Fixed: Match NavDestination.LSPosedGate.route
     )
 
     // Code Assist - AI Coding Assistant
